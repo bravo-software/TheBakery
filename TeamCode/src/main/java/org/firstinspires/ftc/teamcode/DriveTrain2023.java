@@ -3,20 +3,41 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name="Driver", group="TeleOp")
 public class DriveTrain2023 extends LinearOpMode {
     public DcMotor MotorFL, MotorBL;
     public DcMotor MotorFR, MotorBR;
 
+    public Servo claw1, claw2;
+    public Servo arm;
+
+    public double armMultiplier = 2;
     @Override
     public void runOpMode()
     {
-
+        //Setup Motors
         MotorFL  = hardwareMap.get(DcMotor.class, "fL");
         MotorBL  = hardwareMap.get(DcMotor.class, "bL");
         MotorFR  = hardwareMap.get(DcMotor.class, "fR");
         MotorBR  = hardwareMap.get(DcMotor.class, "bR");
+
+        claw1 = hardwareMap.get(Servo.class, "claw1");
+        claw2 = hardwareMap.get(Servo.class, "claw2");
+        arm = hardwareMap.get(Servo.class, "arm");
+
+        //reset Encoders
+        MotorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        MotorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        MotorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        MotorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //run using encoders
+        MotorFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        MotorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        MotorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        MotorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         MotorFL.setDirection(DcMotor.Direction.REVERSE);
         MotorFR.setDirection(DcMotor.Direction.REVERSE);
@@ -33,6 +54,19 @@ public class DriveTrain2023 extends LinearOpMode {
         waitForStart();
         while (opModeIsActive())
         {
+            if(gamepad2.left_stick_y != 0)
+            {
+                //needs changing
+                arm.setPosition( arm.getPosition() + gamepad2.left_stick_y  * armMultiplier / arm.MAX_POSITION);
+            }
+
+            if(gamepad2.a)
+            {
+                //needs changing
+                claw1.setPosition(1);
+                claw2.setPosition(0.8);
+            }
+
             if (gamepad1.right_stick_x != 0)
             {
                 telemetry.addData("Turning", "" + gamepad1.right_stick_x);
@@ -111,34 +145,6 @@ public class DriveTrain2023 extends LinearOpMode {
             MotorBR.setPower(0.6 * speed);
         }
     }
-
-//    private void runSlides(double pos, double power)
-//    {
-//        double TICKS_PER_MOTOR_REV = 537.6;
-//       //countable events per revolution for output shaft, THIS NUMBER CHANGES DEPENDING ON THE TYPE OF MOTOR. VISIT SPECIFICATIONS ON THE WEBSITE THE TEAM GOT THE MOTOR FROM.
-//        double DRIVE_GEAR_REDUCTION = 1.0;
-//       //drive gear reduction
-//        double WHEEL_DIAMETER_INCHES = 1.5;
-//       //diameter of wheels
-//        double COUNTS_PER_INCH = (TICKS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-//           (WHEEL_DIAMETER_INCHES * 3.1415);
-//
-//        int newPos;
-//
-//        if (opModeIsActive()) {
-//
-//            while (opModeIsActive() && pulley.isBusy())
-//            {
-//               //Wait for it to finish rotating
-//            }
-//
-//            sleep(250);
-//            /*
-//            1. Pause to prevent current movements to affect any future movements.
-//            */
-//       }
-//    }
-
     void Turn (float speed)
     {
         if(gamepad1.a)
