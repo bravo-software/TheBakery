@@ -4,20 +4,21 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 
 
-public class Motors
+public class WheelMotors
 {
     private DcMotor MotorFL, MotorBL;
     private DcMotor MotorFR, MotorBR;
 
+    // front left motor is broken for some reason subject to change
     private final int MOTOR_FL_MODIFIER = -1;
     private final int MOTOR_BL_MODIFIER =  1;
     private final int MOTOR_FR_MODIFIER =  1;
     private final int MOTOR_BR_MODIFIER =  1;
 
-    public Motors(DcMotor FL,
-                  DcMotor BL,
-                  DcMotor FR,
-                  DcMotor BR)
+    public WheelMotors(DcMotor FL,
+                       DcMotor BL,
+                       DcMotor FR,
+                       DcMotor BR)
     {
         MotorFL = FL;
         MotorBL = BL;

@@ -7,8 +7,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name="Driver2023", group="TeleOp")
 public class DriveTrain2023 extends LinearOpMode {
-    public DcMotor MotorFL, MotorBL;
-    public DcMotor MotorFR, MotorBR;
+
+    public WheelMotors wheelMotors;
+    private DcMotor MotorFL, MotorBL;
+    private DcMotor MotorFR, MotorBR;
 
     public DcMotor arm;
     public Servo claw1;
@@ -22,37 +24,26 @@ public class DriveTrain2023 extends LinearOpMode {
         MotorFR  = hardwareMap.get(DcMotor.class, "fR");
         MotorBR  = hardwareMap.get(DcMotor.class, "bR");
 
+        wheelMotors = new WheelMotors(MotorFL, MotorBL, MotorFR, MotorBR);
+
 
         claw1    = hardwareMap.get(Servo.class, "claw1");
         arm      = hardwareMap.get(DcMotor.class, "arm");
-        MotorFL.setDirection(DcMotor.Direction.REVERSE);
-        MotorFR.setDirection(DcMotor.Direction.REVERSE);
-        MotorBL.setDirection(DcMotor.Direction.REVERSE);
-        MotorBR.setDirection(DcMotor.Direction.REVERSE);
+
+        wheelMotors.setDirection(DcMotor.Direction.REVERSE);
+
         telemetry.addData("Status", "New Initialized");
         telemetry.update();
 
-        // //reset Encoders
-        // MotorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        // MotorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        // MotorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        // MotorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // //run using encoders
-        // MotorFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        // MotorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        // MotorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        // MotorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        wheelMotors.initEncoders();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        MotorFL.setPower(0);
-        MotorBL.setPower(0);
-        MotorFR.setPower(0);
-        MotorBR.setPower(0);
+        wheelMotors.setPower(0);
 
         waitForStart();
+
         while (opModeIsActive())
         {
             telemetry.clear();
@@ -129,10 +120,7 @@ public class DriveTrain2023 extends LinearOpMode {
     void Strafe(float speed)
     {
         double speedMod = calculateSpeedModifier(0.2, 0.6, 1);
-        MotorFL.setPower(speed * speedMod);
-        MotorBL.setPower(speed * speedMod);
-        MotorFR.setPower(speed * speedMod);
-        MotorBR.setPower(speed * speedMod * -1);
+        wheelMotors.Strafe(speed * speedMod);
     }
 
     //Front is 223rpm, Back is 312rpm
@@ -140,19 +128,14 @@ public class DriveTrain2023 extends LinearOpMode {
     {
         //get speed modifier
         double speedMod = calculateSpeedModifier(0.2, 0.6, 1);
-        MotorFL.setPower(speed * speedMod * -1);
-        MotorBL.setPower(speed * speedMod);
-        MotorFR.setPower(speed * speedMod);
-        MotorBR.setPower(speed * speedMod);
+        wheelMotors.Drive(speed * speedMod);
     }
     void Turn (float speed)
     {
         double speedMod = calculateSpeedModifier(0.3, 0.6, 1);
-        MotorFL.setPower(speed * speedMod);
-        MotorBL.setPower(speed * speedMod * -1);
-        MotorFR.setPower(speed * speedMod);
-        MotorBR.setPower(speed * speedMod);
+        wheelMotors.Turn(speed * speedMod);
     }
+
 
 //    private void runSlides(double pos, double power)
 //    {
