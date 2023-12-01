@@ -5,14 +5,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name="Driver2023", group="TeleOp")
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.Core.Vision;
+import org.firstinspires.ftc.teamcode.Core.WheelMotors;
+
+@TeleOp(name="Driver2024", group="TeleOp")
 public class DriveTrain2023 extends LinearOpMode {
 
     public WheelMotors wheelMotors;
     private DcMotor MotorFL, MotorBL;
     private DcMotor MotorFR, MotorBR;
-
-    public DcMotor arm;
+    private WebcamName camName;
+    private Vision visionEngine;
     public Servo claw1;
 
     @Override
@@ -25,10 +29,12 @@ public class DriveTrain2023 extends LinearOpMode {
         MotorBR  = hardwareMap.get(DcMotor.class, "bR");
 
         wheelMotors = new WheelMotors(MotorFL, MotorBL, MotorFR, MotorBR);
-
-
         claw1    = hardwareMap.get(Servo.class, "claw1");
-        arm      = hardwareMap.get(DcMotor.class, "arm");
+
+        //camera stuff
+        camName = hardwareMap.get(WebcamName.class, "Webcam 1");
+        visionEngine = new Vision(camName);
+
 
         wheelMotors.setDirection(DcMotor.Direction.REVERSE);
 
@@ -51,7 +57,6 @@ public class DriveTrain2023 extends LinearOpMode {
             telemetry.addData("Position BL", MotorBL.getCurrentPosition());
             telemetry.addData("Position FR", MotorFR.getCurrentPosition());
             telemetry.addData("Position BR", MotorBR.getCurrentPosition());
-            telemetry.addData("Position arm", arm.getCurrentPosition());
             telemetry.update();
             if (gamepad1.right_stick_x != 0)
             {
@@ -107,13 +112,13 @@ public class DriveTrain2023 extends LinearOpMode {
             //     arm.setDirection(DcMotorSimple.Direction.REVERSE);
             //     arm.setTargetPosition(75);
             // }
-            if (gamepad2.left_stick_y != 0)
-            {
-                telemetry.addData("Arm","");
-                telemetry.update();
-                arm.setPower(gamepad2.left_stick_y * 0.6);
-
-            }
+//            if (gamepad2.left_stick_y != 0)
+//            {
+//                telemetry.addData("Arm","");
+//                telemetry.update();
+//                arm.setPower(gamepad2.left_stick_y * 0.6);
+//
+//            }
         }
     }
 
