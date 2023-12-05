@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Core;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-
 public class WheelMotors
 {
     private DcMotor MotorFL, MotorBL;
@@ -13,8 +12,8 @@ public class WheelMotors
     // front left motor is broken for some reason subject to change
     private final int MOTOR_FL_MODIFIER = -1;
     private final int MOTOR_BL_MODIFIER =  1;
-    private final int MOTOR_FR_MODIFIER =  1;
-    private final int MOTOR_BR_MODIFIER =  1;
+    private final int MOTOR_FR_MODIFIER = -1;
+    private final int MOTOR_BR_MODIFIER = -1;
 
     public WheelMotors(DcMotor FL,
                        DcMotor BL,
@@ -48,6 +47,7 @@ public class WheelMotors
     }
     public void Drive(double speed)
     {
+        System.out.println("Driving");
         setPower(speed);
     }
     public void Stop()
@@ -56,6 +56,7 @@ public class WheelMotors
     }
     public void Turn(double speed)
     {
+        System.out.println("turning");
         setPowerFL(-speed);
         setPowerBL(-speed);
         setPowerFR(speed);
@@ -63,6 +64,7 @@ public class WheelMotors
     }
     public void Strafe(double speed)
     {
+        System.out.println("strafing");
         setPowerFL(-speed);
         setPowerBL(speed);
         setPowerFR(speed);

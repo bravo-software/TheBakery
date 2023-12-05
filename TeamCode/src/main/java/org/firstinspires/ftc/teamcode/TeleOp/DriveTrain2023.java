@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.Core.LinearSlides;
 import org.firstinspires.ftc.teamcode.Core.Vision;
 import org.firstinspires.ftc.teamcode.Core.WheelMotors;
 
@@ -16,6 +17,9 @@ public class DriveTrain2023 extends LinearOpMode {
     private DcMotor MotorFL, MotorBL;
     private DcMotor MotorFR, MotorBR;
     private WebcamName camName;
+
+    private LinearSlides linearSlides;
+    private final int linearSlidesPosition = 100;
     private Vision visionEngine;
     public Servo claw1;
 
@@ -29,12 +33,14 @@ public class DriveTrain2023 extends LinearOpMode {
         MotorBR  = hardwareMap.get(DcMotor.class, "bR");
 
         wheelMotors = new WheelMotors(MotorFL, MotorBL, MotorFR, MotorBR);
-        claw1    = hardwareMap.get(Servo.class, "claw1");
+//        claw1    = hardwareMap.get(Servo.class, "claw1");
 
         //camera stuff
         camName = hardwareMap.get(WebcamName.class, "Webcam 1");
         visionEngine = new Vision(camName);
 
+        //Linear Slides Mech
+        linearSlides = new LinearSlides(hardwareMap, "Slides", 1100);
 
         wheelMotors.setDirection(DcMotor.Direction.REVERSE);
 
@@ -57,17 +63,17 @@ public class DriveTrain2023 extends LinearOpMode {
             telemetry.addData("Position BL", MotorBL.getCurrentPosition());
             telemetry.addData("Position FR", MotorFR.getCurrentPosition());
             telemetry.addData("Position BR", MotorBR.getCurrentPosition());
+
+            telemetry.addData("Linear Slides Position", linearSlides.getPosition());
             telemetry.update();
+
             if (gamepad1.right_stick_x != 0)
             {
                 telemetry.addData("Turning", "" + gamepad1.right_stick_x);
                 telemetry.update();
                 Turn(gamepad1.right_stick_x);
             }
-            else
-            {
-                Turn(0);
-            }
+
             if (gamepad1.left_stick_y != 0)
             {
                 telemetry.addData("Not turning", "");
@@ -89,6 +95,15 @@ public class DriveTrain2023 extends LinearOpMode {
             {
                 Strafe(0);
             }
+
+            if(gamepad2.y)
+            {
+                if(linearSlides.isTop())
+                    linearSlides.reset();
+                else
+                    linearSlides.extend();
+            }
+
 
             if (gamepad2.left_bumper)
             {
