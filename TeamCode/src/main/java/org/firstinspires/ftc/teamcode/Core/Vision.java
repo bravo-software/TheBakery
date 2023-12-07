@@ -7,6 +7,8 @@ package org.firstinspires.ftc.teamcode.Core;
 //import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 //import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.vision.VisionPortal;
@@ -23,11 +25,11 @@ public class Vision
 
 // Create the AprilTag processor and assign it to a variable.
 
-    public Vision(WebcamName webcamName)
+    public Vision(HardwareMap map, String webcamName)
     {
         myAprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
         myTfodProcessor = TfodProcessor.easyCreateWithDefaults();
-        cameraName = webcamName;
+        cameraName = map.get(WebcamName.class, webcamName);
         myVisionPortal = VisionPortal.easyCreateWithDefaults(cameraName, myAprilTagProcessor, myTfodProcessor);
     }
 }

@@ -13,6 +13,7 @@ public class LinearSlides
     {
         motor = map.get(DcMotor.class, name);
         this.targetPosition = targetPosition;
+        motor.setTargetPosition(targetPosition);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         isTop = false;
     }
