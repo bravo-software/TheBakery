@@ -6,21 +6,34 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class LinearSlides
 {
     private DcMotor motor;
-    private int targetPosition;
+    private int topPosition;
     private boolean isTop;
 
-    public LinearSlides(HardwareMap map, String name, int targetPosition)
+    public LinearSlides(HardwareMap map, String name, int topPosition)
     {
         motor = map.get(DcMotor.class, name);
-        this.targetPosition = targetPosition;
-        motor.setTargetPosition(targetPosition);
+        this.topPosition = topPosition;
+        motor.setTargetPosition(topPosition);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         isTop = false;
     }
 
+    public void toggle()
+    {
+        if (isTop)
+        {
+            reset();
+        }
+        else
+        {
+            extend();
+        }
+    }
+
+
     public void extend()
     {
-        motor.setTargetPosition(targetPosition);
+        motor.setTargetPosition(topPosition);
         motor.setPower(0.5);
         isTop = true;
     }

@@ -37,7 +37,7 @@ public class PixelCollector
     }
 
 
-    public void flipTrapdoorPosition()
+    public void toggleTrapdoorPosition()
     {
         if (trapdoorState == State.ACTIVE)
         {
@@ -48,7 +48,7 @@ public class PixelCollector
             openTrapdoor();
         }
     }
-    public void flipIntake()
+    public void toggleIntake()
     {
         if (intakeState == State.ACTIVE)
         {
@@ -60,7 +60,7 @@ public class PixelCollector
         }
 
     }
-    public void flipWristPosition()
+    public void toggleWristPosition()
     {
         if (wristPosition == State.ACTIVE)
         {

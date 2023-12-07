@@ -19,7 +19,8 @@ public class DriveTrain
     private final int MOTOR_FR_MODIFIER = -1;
     private final int MOTOR_BR_MODIFIER = -1;
 
-    public DriveTrain(HardwareMap map, String FL,
+    public DriveTrain(HardwareMap map,
+                      String FL,
                       String BL,
                       String FR,
                       String BR)
@@ -32,30 +33,9 @@ public class DriveTrain
 
     public void Drive(Gamepad gamepad)
     {
-        if (gamepad.right_stick_x != 0)
-        {
-            Turn(gamepad, gamepad.right_stick_x);
-        }
-
-        if (gamepad.left_stick_y != 0)
-        {
-            Forward(gamepad, gamepad.left_stick_y);
-        }
-        else
-        {
-            Forward(gamepad, 0);
-        }
-
-        if (gamepad.left_stick_x != 0)
-        {
-            Strafe(gamepad, gamepad.left_stick_x);
-        }
-
-        else
-        {
-            Strafe(gamepad, 0);
-        }
-
+        Turn(gamepad, gamepad.right_stick_x);
+        Forward(gamepad, gamepad.left_stick_y);
+        Strafe(gamepad, gamepad.left_stick_x);
     }
     public void init()
     {
