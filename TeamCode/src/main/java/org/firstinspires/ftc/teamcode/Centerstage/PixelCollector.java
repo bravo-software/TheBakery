@@ -27,10 +27,10 @@ public class PixelCollector
     private Servo wrist;
 
     /** Low position value for wrist servo. */
-    private double wristLow = 0;
+    private double wristLow = 0.2;
 
     /** High position value for wrist servo. */
-    private double wristHigh = 0.25;
+    private double wristHigh = 0.6;
 
     /** Current wrist position (ACTIVE = high, INACTIVE = low). */
     private State wristPosition = State.ACTIVE;
@@ -39,10 +39,10 @@ public class PixelCollector
     private Servo trapdoor;
 
     /** Open position value for trapdoor servo. */
-    private double trapdoorOpenPosition = -1.0;
+    private double trapdoorOpenPosition = 0.67;
 
     /** Close position value for trapdoor servo. */
-    private double trapdoorClosePosition = 0.3;
+    private double trapdoorClosePosition = 0.31;
 
     /** Current state of trapdoor (ACTIVE = open, INACTIVE = closed). */
     private State trapdoorState = State.INACTIVE;
@@ -74,10 +74,16 @@ public class PixelCollector
 
     /** Toggles intake between running and stopped states. */
     public void toggleIntake() {
-        if (intakeState == State.ACTIVE)
-            stopIntake();
-        else
+        while (intakeState != State.ACTIVE) {
             runIntake();
+        }
+
+
+//        if (intakeState == State.ACTIVE)
+//
+//            stopIntake();
+//        else
+//            runIntake();
     }
 
     /** Toggles wrist position between high and low. */
