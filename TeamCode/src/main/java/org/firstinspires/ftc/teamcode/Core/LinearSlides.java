@@ -19,7 +19,7 @@ public class LinearSlides
      * True if the slides are extended (at the extended position), false otherwise.
      */
     private boolean isExtended;
-    private ButtonToggle toggle;
+    private ServoToggle toggle;
 
     /**
      * Constructor for LinearSlides.
@@ -35,7 +35,7 @@ public class LinearSlides
         this.extendedPosition = extendedPosition;
         this.isExtended = false;
 
-        this.toggle = new ButtonToggle(this::toggle);
+        this.toggle = new ServoToggle(this::extend, this::reset, false);
 
         motor.setTargetPosition(extendedPosition);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
