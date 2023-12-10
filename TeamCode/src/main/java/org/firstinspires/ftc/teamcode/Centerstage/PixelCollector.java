@@ -74,10 +74,10 @@ public class PixelCollector
 
     /** Toggles intake between running and stopped states. */
     public void toggleIntake() {
-        while (intakeState != State.ACTIVE) {
-            runIntake();
-        }
-
+        //if (intakeState != State.ACTIVE) {
+            //runIntake();
+        //}
+        intake.setPower(1.0);
 
 //        if (intakeState == State.ACTIVE)
 //
