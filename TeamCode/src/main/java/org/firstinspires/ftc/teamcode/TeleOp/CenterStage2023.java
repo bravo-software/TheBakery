@@ -58,7 +58,7 @@ public class CenterStage2023 extends LinearOpMode {
             {
                 linearSlides.toggle();
             }
-            if (gamepad2.a)
+            while (gamepad2.a)
             {
                 pixelCollector.toggleIntake();
             }
