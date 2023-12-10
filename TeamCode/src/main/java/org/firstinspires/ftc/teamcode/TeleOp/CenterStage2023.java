@@ -60,7 +60,7 @@ public class CenterStage2023 extends LinearOpMode {
             }
             if (gamepad2.a)
             {
-                pixelCollector.toggleIntake();
+                pixelCollector.runIntake();
             }
             if (gamepad2.b)
             {
@@ -70,6 +70,7 @@ public class CenterStage2023 extends LinearOpMode {
             {
                 pixelCollector.toggleTrapdoorPosition();
             }
+
         }
     }
 

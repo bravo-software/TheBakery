@@ -39,10 +39,10 @@ public class PixelCollector
     private Servo trapdoor;
 
     /** Open position value for trapdoor servo. */
-    private double trapdoorOpenPosition = 0.25;
+    private double trapdoorOpenPosition = -1.0;
 
     /** Close position value for trapdoor servo. */
-    private double trapdoorClosePosition = 0;
+    private double trapdoorClosePosition = 0.3;
 
     /** Current state of trapdoor (ACTIVE = open, INACTIVE = closed). */
     private State trapdoorState = State.INACTIVE;
@@ -60,6 +60,7 @@ public class PixelCollector
         intake = map.get(CRServo.class, intakeName);
         wrist = map.get(Servo.class, wristName);
         trapdoor = map.get(Servo.class, trapdoorName);
+        trapdoor.setDirection(Servo.Direction.REVERSE);
     }
 
     /** Toggles trapdoor between open and closed positions. */
@@ -89,22 +90,23 @@ public class PixelCollector
     }
 
     /** Sets trapdoor to open position. */
-    private void openTrapdoor()
+    public void openTrapdoor()
     {
         trapdoorState = State.ACTIVE;
         trapdoor.setPosition(trapdoorOpenPosition);
     }
 
     /** Sets trapdoor to closed position. */
-    private void closeTrapdoor()
+    public void closeTrapdoor()
     {
         trapdoorState = State.INACTIVE;
         trapdoor.setPosition(trapdoorClosePosition);
     }
 
     /** Activates the intake mechanism. */
-    private void runIntake()
+    public void runIntake()
     {
+
         intakeState = State.ACTIVE;
         intake.setPower(1.0);
     }
@@ -128,5 +130,10 @@ public class PixelCollector
     {
         wristPosition = State.ACTIVE;
         wrist.setPosition(wristHigh);
+    }
+
+    private double getTrapdoorPosition()
+    {
+        return trapdoor.getPosition();
     }
 }
