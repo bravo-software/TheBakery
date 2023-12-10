@@ -54,22 +54,8 @@ public class CenterStage2023 extends LinearOpMode {
 
 
             //Controller 2
-            if (gamepad2.y)
-            {
-                linearSlides.toggle();
-            }
-            while (gamepad2.a)
-            {
-                pixelCollector.runIntake();
-            }
-            if (gamepad2.b)
-            {
-                pixelCollector.toggleWristPosition();
-            }
-            if (gamepad2.x)
-            {
-                pixelCollector.toggleTrapdoorPosition();
-            }
+            pixelCollector.updateToggles(gamepad2.x, gamepad2.b, gamepad2.a);
+
 
         }
     }
