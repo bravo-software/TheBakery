@@ -21,7 +21,7 @@ public class PixelCollector
     }
 
     /** CRServo for intake mechanism. */
-    private CRServo intake;
+    public CRServo intake;
 
     /** Current state of intake (ACTIVE = running, INACTIVE = stopped). */
     private State intakeState = State.INACTIVE;
@@ -51,6 +51,10 @@ public class PixelCollector
     /** Current state of trapdoor (ACTIVE = open, INACTIVE = closed). */
     private State trapdoorState = State.INACTIVE;
 
+    private ButtonToggle trapdoorToggle;
+    private ButtonToggle wristToggle;
+    private ButtonToggle intakeToggle;
+
     /**
      * Initializes intake, wrist, and trapdoor components.
      *
@@ -59,11 +63,6 @@ public class PixelCollector
      * @param wristName     Name of wrist Servo.
      * @param trapdoorName  Name of trapdoor Servo.
      */
-
-    private ButtonToggle trapdoorToggle;
-    private ButtonToggle wristToggle;
-    private ButtonToggle intakeToggle;
-
     public PixelCollector(@NonNull HardwareMap map, String intakeName, String wristName, String trapdoorName)
     {
         intake = map.get(CRServo.class, intakeName);
@@ -73,18 +72,24 @@ public class PixelCollector
 
         trapdoorToggle = new ButtonToggle(this::toggleTrapdoorPosition);
         wristToggle = new ButtonToggle(this::toggleWristPosition);
-        intakeToggle = new ButtonToggle(this::toggleIntake);
+//        intakeToggle = new ButtonToggle(this::toggleIntake);
     }
 
-    public void updateToggles(boolean trapdoorButton, boolean wristButton, boolean intakeButton)
+    public void updateServos(boolean trapdoorButton, boolean wristButton, boolean intakeButton)
     {
         trapdoorToggle.update(trapdoorButton);
         wristToggle.update(wristButton);
-        intakeToggle.update(intakeButton);
+
+        if (intakeButton)
+           runIntake();
+        else
+            stopIntake();
+//        intakeToggle.update(intakeButton);
     }
 
     /** Toggles trapdoor between open and closed positions. */
-    public void toggleTrapdoorPosition() {
+    public void toggleTrapdoorPosition()
+    {
         if (trapdoorState == State.ACTIVE)
             closeTrapdoor();
          else
@@ -93,18 +98,13 @@ public class PixelCollector
     }
 
     /** Toggles intake between running and stopped states. */
-    public void toggleIntake() {
-        while (intakeState != State.ACTIVE) {
-            runIntake();
-        }
-
-
+//    public void toggleIntake()
+//    {
 //        if (intakeState == State.ACTIVE)
-//
 //            stopIntake();
 //        else
 //            runIntake();
-    }
+//    }
 
     /** Toggles wrist position between high and low. */
     public void toggleWristPosition()
@@ -132,7 +132,6 @@ public class PixelCollector
     /** Activates the intake mechanism. */
     public void runIntake()
     {
-
         intakeState = State.ACTIVE;
         intake.setPower(1.0);
     }
