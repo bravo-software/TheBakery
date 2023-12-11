@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 public class LinearSlides
 {
-    private DcMotor motor;
+    public DcMotor motor;
     /**
      * The position to which the slides will extend.
      */
@@ -19,6 +19,7 @@ public class LinearSlides
      * True if the slides are extended (at the extended position), false otherwise.
      */
     private boolean isExtended;
+    private ServoToggle toggle;
 
     /**
      * Constructor for LinearSlides.
@@ -34,15 +35,22 @@ public class LinearSlides
         this.extendedPosition = extendedPosition;
         this.isExtended = false;
 
+        this.toggle = new ServoToggle(this::extend, this::reset, false);
+
         motor.setTargetPosition(extendedPosition);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    public void update(boolean buttonState)
+    {
+        toggle.update(buttonState);
     }
 
     /**
      * Toggles the position of the linear slides.
      * If the slides are at the top, it will reset them (retract); if not, it will extend them.
      */
-    public void toggle()
+    private void toggle()
     {
         if (isExtended)
             reset();
@@ -57,7 +65,7 @@ public class LinearSlides
     public void extend()
     {
         motor.setTargetPosition(extendedPosition);
-        motor.setPower(0.5);
+        motor.setPower(0.75);
         isExtended = true;
     }
 
