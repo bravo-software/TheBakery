@@ -60,7 +60,7 @@ public class DriveTrain
     {
         setDirection(DcMotor.Direction.FORWARD);
         Stop();
-        // initEncoders();
+        initEncoders();
     }
 
     /**
@@ -200,7 +200,7 @@ public class DriveTrain
      *
      * @param power The power level to set the motors.
      */
-    private void setPower(double power)
+    public void setPower(double power)
     {
         MotorFL.setPower(power * MOTOR_FL_MODIFIER);
         MotorBL.setPower(power * MOTOR_BL_MODIFIER);
@@ -253,11 +253,22 @@ public class DriveTrain
      *
      * @param mode The mode to set the motors.
      */
-    private void setMode(DcMotor.RunMode mode)
+    public void setMode(DcMotor.RunMode mode)
     {
         MotorFL.setMode(mode);
         MotorBL.setMode(mode);
         MotorFR.setMode(mode);
         MotorBR.setMode(mode);
+    }
+    public void setTargetPosition(int ticks)
+    {
+        MotorFL.setTargetPosition(ticks);
+        MotorBL.setTargetPosition(ticks);
+        MotorFR.setTargetPosition(ticks);
+        MotorBR.setTargetPosition(ticks);
+    }
+    public boolean isBusy()
+    {
+        return MotorFL.isBusy() && MotorBL.isBusy() && MotorFR.isBusy() && MotorBR.isBusy();
     }
 }
