@@ -3,10 +3,11 @@ package org.firstinspires.ftc.teamcode.Centerstage;
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Core.ButtonToggle;
+import org.firstinspires.ftc.teamcode.Core.ServoToggle;
 
 /** Manages the PixelCollector mechanism in an FTC robot, controlling intake, wrist, and trapdoor. */
 public class PixelCollector
@@ -21,7 +22,7 @@ public class PixelCollector
     }
 
     /** CRServo for intake mechanism. */
-    public CRServo intake;
+    private CRServo intake;
 
     /** Current state of intake (ACTIVE = running, INACTIVE = stopped). */
     private State intakeState = State.INACTIVE;
@@ -51,10 +52,6 @@ public class PixelCollector
     /** Current state of trapdoor (ACTIVE = open, INACTIVE = closed). */
     private State trapdoorState = State.INACTIVE;
 
-    private ButtonToggle trapdoorToggle;
-    private ButtonToggle wristToggle;
-    private ButtonToggle intakeToggle;
-
     /**
      * Initializes intake, wrist, and trapdoor components.
      *
@@ -63,33 +60,25 @@ public class PixelCollector
      * @param wristName     Name of wrist Servo.
      * @param trapdoorName  Name of trapdoor Servo.
      */
+
+    private ServoToggle trapdoorToggle;
+    private ServoToggle wristToggle;
+    private ServoToggle intakeToggle;
+
     public PixelCollector(@NonNull HardwareMap map, String intakeName, String wristName, String trapdoorName)
     {
         intake = map.get(CRServo.class, intakeName);
         wrist = map.get(Servo.class, wristName);
         trapdoor = map.get(Servo.class, trapdoorName);
-        trapdoor.setDirection(Servo.Direction.REVERSE);
+        intake.setDirection(CRServo.Direction.REVERSE);
 
-        trapdoorToggle = new ButtonToggle(this::toggleTrapdoorPosition);
-        wristToggle = new ButtonToggle(this::toggleWristPosition);
-//        intakeToggle = new ButtonToggle(this::toggleIntake);
-    }
-
-    public void updateServos(boolean trapdoorButton, boolean wristButton, boolean intakeButton)
-    {
-        trapdoorToggle.update(trapdoorButton);
-        wristToggle.update(wristButton);
-
-        if (intakeButton)
-           runIntake();
-        else
-            stopIntake();
-//        intakeToggle.update(intakeButton);
+        trapdoorToggle = new ServoToggle(this::toggleTrapdoorPosition);
+        wristToggle = new ServoToggle(this::toggleWristPosition);
+        intakeToggle = new ServoToggle(this::toggleIntake);
     }
 
     /** Toggles trapdoor between open and closed positions. */
-    public void toggleTrapdoorPosition()
-    {
+    public void toggleTrapdoorPosition() {
         if (trapdoorState == State.ACTIVE)
             closeTrapdoor();
          else
@@ -98,13 +87,18 @@ public class PixelCollector
     }
 
     /** Toggles intake between running and stopped states. */
-//    public void toggleIntake()
-//    {
+    public void toggleIntake() {
+        //if (intakeState != State.ACTIVE) {
+            //runIntake();
+        //}
+        intake.setPower(1.0);
+
 //        if (intakeState == State.ACTIVE)
+//
 //            stopIntake();
 //        else
 //            runIntake();
-//    }
+    }
 
     /** Toggles wrist position between high and low. */
     public void toggleWristPosition()
@@ -132,6 +126,7 @@ public class PixelCollector
     /** Activates the intake mechanism. */
     public void runIntake()
     {
+
         intakeState = State.ACTIVE;
         intake.setPower(1.0);
     }
@@ -160,5 +155,18 @@ public class PixelCollector
     private double getTrapdoorPosition()
     {
         return trapdoor.getPosition();
+    }
+
+    public void updateServos(boolean trapdoorButton, boolean wristButton, boolean intakeButton)
+    {
+        trapdoorToggle.update(trapdoorButton);
+        wristToggle.update(wristButton);
+        intakeToggle.update(intakeButton);
+
+        if (intakeButton)
+            runIntake();
+        else
+            stopIntake();
+//        intakeToggle.update(intakeButton);
     }
 }

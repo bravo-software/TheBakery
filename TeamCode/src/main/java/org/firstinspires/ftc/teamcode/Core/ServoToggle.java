@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Core;
 
-public class ButtonToggle
+public class ServoToggle
 {
     private boolean lastButtonState = false;
 
@@ -11,7 +11,7 @@ public class ButtonToggle
 
     private final ToggleAction action;
 
-    public ButtonToggle(ToggleAction action)
+    public ServoToggle(ToggleAction action)
     {
         this.action = action;
     }
