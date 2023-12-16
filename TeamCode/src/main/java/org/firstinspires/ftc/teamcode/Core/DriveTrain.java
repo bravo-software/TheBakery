@@ -101,7 +101,7 @@ public class DriveTrain
      * @param gamepad The gamepad controlling movement for the robot.
      * @param speed   The speed at which to turn.
      */
-    private void Turn(Gamepad gamepad, float speed)
+    public void Turn(Gamepad gamepad, float speed)
     {
         double speedMod = calculateSpeedModifier(gamepad, 0.3, 0.6, 1);
         DirectTurn(speed * speedMod);
@@ -172,7 +172,7 @@ public class DriveTrain
      *
      * @param speed The speed at which to turn.
      */
-    private void DirectTurn(double speed)
+    public void DirectTurn(double speed)
     {
         System.out.println("Turning");
         setPowerFL(-speed);

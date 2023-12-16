@@ -3,10 +3,11 @@ package org.firstinspires.ftc.teamcode.Centerstage;
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Core.ButtonToggle;
+import org.firstinspires.ftc.teamcode.Core.ServoToggle;
 
 /** Manages the PixelCollector mechanism in an FTC robot, controlling intake, wrist, and trapdoor. */
 public class PixelCollector
@@ -60,27 +61,20 @@ public class PixelCollector
      * @param trapdoorName  Name of trapdoor Servo.
      */
 
-    private ButtonToggle trapdoorToggle;
-    private ButtonToggle wristToggle;
-    private ButtonToggle intakeToggle;
+    private ServoToggle trapdoorToggle;
+    private ServoToggle wristToggle;
+    private ServoToggle intakeToggle;
 
     public PixelCollector(@NonNull HardwareMap map, String intakeName, String wristName, String trapdoorName)
     {
         intake = map.get(CRServo.class, intakeName);
         wrist = map.get(Servo.class, wristName);
         trapdoor = map.get(Servo.class, trapdoorName);
-        trapdoor.setDirection(Servo.Direction.REVERSE);
+        intake.setDirection(CRServo.Direction.REVERSE);
 
-        trapdoorToggle = new ButtonToggle(this::toggleTrapdoorPosition);
-        wristToggle = new ButtonToggle(this::toggleWristPosition);
-        intakeToggle = new ButtonToggle(this::toggleIntake);
-    }
-
-    public void updateToggles(boolean trapdoorButton, boolean wristButton, boolean intakeButton)
-    {
-        trapdoorToggle.update(trapdoorButton);
-        wristToggle.update(wristButton);
-        intakeToggle.update(intakeButton);
+        trapdoorToggle = new ServoToggle(this::toggleTrapdoorPosition);
+        wristToggle = new ServoToggle(this::toggleWristPosition);
+        intakeToggle = new ServoToggle(this::toggleIntake);
     }
 
     /** Toggles trapdoor between open and closed positions. */
@@ -161,5 +155,18 @@ public class PixelCollector
     private double getTrapdoorPosition()
     {
         return trapdoor.getPosition();
+    }
+
+    public void updateServos(boolean trapdoorButton, boolean wristButton, boolean intakeButton)
+    {
+        trapdoorToggle.update(trapdoorButton);
+        wristToggle.update(wristButton);
+        intakeToggle.update(intakeButton);
+
+        if (intakeButton)
+            runIntake();
+        else
+            stopIntake();
+//        intakeToggle.update(intakeButton);
     }
 }

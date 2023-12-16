@@ -20,6 +20,8 @@ public class Driver
         driveTrain.init();
     }
 
+    private int turntickValue180 = 17;
+
     public void foward(double distance)
     {
         double rotations = distance / (Math.PI * diameter_mm);
@@ -54,6 +56,15 @@ public class Driver
 
     public void turn(double angle)
     {
+        driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        driveTrain.DirectTurn(0.5);
+        int tickPosition = turntickValue180 * (int)(angle/180);
 
+        driveTrain.MotorBL.setTargetPosition(-tickPosition);
+        driveTrain.MotorBR.setTargetPosition( tickPosition);
+        driveTrain.MotorFL.setTargetPosition(-tickPosition);
+        driveTrain.MotorFR.setTargetPosition( tickPosition);
+
+        while(driveTrain.isBusy()) {}
     }
 }
