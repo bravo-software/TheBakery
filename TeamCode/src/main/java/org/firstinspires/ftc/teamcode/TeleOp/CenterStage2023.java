@@ -13,7 +13,7 @@ public class CenterStage2023 extends LinearOpMode {
 
     public DriveTrain driveTrain;
     private LinearSlides linearSlides;
-    private final int linearSlidesPosition = 1100;
+    private final int linearSlidesPosition = 1540;
     private Vision visionEngine;
     private PixelCollector pixelCollector;
 
@@ -38,6 +38,8 @@ public class CenterStage2023 extends LinearOpMode {
         while (opModeIsActive())
         {
             telemetry.clear();
+            telemetry.addData("Slides Pos", "" + linearSlides.getPosition());
+            telemetry.update();
 
             //Controller 1
             driveTrain.Drive(gamepad1);

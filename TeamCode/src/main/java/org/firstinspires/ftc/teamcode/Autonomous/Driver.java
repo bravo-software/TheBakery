@@ -28,7 +28,7 @@ public class Driver
         driveTrain.setTargetPosition(ticks);
         driveTrain.setPower(0.5);
         driveTrain.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        while(driveTrain.isBusy()) {}
+        while( driveTrain.isBusy() ) {}
         driveTrain.Stop();
     }
     public void turn(double angle)

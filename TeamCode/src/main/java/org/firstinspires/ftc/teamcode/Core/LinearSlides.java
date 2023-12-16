@@ -37,6 +37,7 @@ public class LinearSlides
 
         this.toggle = new ButtonToggle(this::toggle);
 
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setTargetPosition(extendedPosition);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
