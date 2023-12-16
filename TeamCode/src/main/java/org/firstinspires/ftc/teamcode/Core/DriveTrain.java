@@ -59,6 +59,7 @@ public class DriveTrain
     public void init()
     {
         setDirection(DcMotor.Direction.FORWARD);
+        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Stop();
         initEncoders();
     }
@@ -161,7 +162,7 @@ public class DriveTrain
      *
      * @param speed The speed at which to move forward.
      */
-    private void DirectFoward(double speed)
+    public void DirectFoward(double speed)
     {
         System.out.println("Driving");
         setPower(speed);

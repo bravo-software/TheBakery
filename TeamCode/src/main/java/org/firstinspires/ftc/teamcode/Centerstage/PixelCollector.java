@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Centerstage;
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -70,6 +69,7 @@ public class PixelCollector
         intake = map.get(CRServo.class, intakeName);
         wrist = map.get(Servo.class, wristName);
         trapdoor = map.get(Servo.class, trapdoorName);
+
         intake.setDirection(CRServo.Direction.REVERSE);
 
         trapdoorToggle = new ServoToggle(this::toggleTrapdoorPosition);
