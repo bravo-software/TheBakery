@@ -88,7 +88,7 @@ public class PixelCollector
         trapdoorToggle = new ServoToggle(this::toggleTrapdoorPosition);
         wristToggle = new ServoToggle(this::toggleWristPosition);
         launcherToggle = new ServoToggle(this::toggleLauncherPosition);
-        launcherToggle2 = new ServoToggle(this:: moveWristMid);
+        //launcherToggle2 = new ServoToggle(this:: moveWristMid);
         // intakeToggle = new ServoToggle(this::toggleIntake);
     }
 
@@ -198,7 +198,7 @@ public class PixelCollector
         trapdoorToggle.update(trapdoorButton);
         wristToggle.update(wristButton);
         launcherToggle.update(launcherButton);
-        launcherToggle2.update(xd);
+        //launcherToggle2.update(xd);
 
         //intakeToggle.update(intakeButton);
 
