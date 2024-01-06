@@ -70,6 +70,12 @@ public class LinearSlides
         isExtended = true;
     }
 
+    public void initExtend() {
+        motor.setTargetPosition(250);
+        motor.setPower(0.75);
+        isExtended = true;
+    }
+
     /**
      * Resets the linear slides to their starting position.
      * Sets the target position to zero and applies power to the motor.

@@ -14,6 +14,11 @@ public class CenterStage2023 extends LinearOpMode {
     public DriveTrain driveTrain;
     private LinearSlides linearSlides;
     private final int linearSlidesPosition = 1540;
+
+    private final int linearInitializationSlidesPosition = 100;
+
+    private LinearSlides temp;
+
     private Vision visionEngine;
     private PixelCollector pixelCollector;
 
@@ -27,7 +32,7 @@ public class CenterStage2023 extends LinearOpMode {
         //Linear Slides
         linearSlides = new LinearSlides(hardwareMap, "Slides", linearSlidesPosition);
         //PixelCollector
-        pixelCollector = new PixelCollector(hardwareMap, "intake", "wrist", "trapdoor");
+        pixelCollector = new PixelCollector(hardwareMap, "wrist", "trapdoor", "launcher");
 
         driveTrain.init();
 
@@ -35,19 +40,24 @@ public class CenterStage2023 extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
+        linearSlides.extend();
+        linearSlides.reset();
+
         while (opModeIsActive())
         {
             telemetry.clear();
             telemetry.addData("Slides Pos", "" + linearSlides.getPosition());
             telemetry.update();
 
+
             //Controller 1
             driveTrain.Drive(gamepad1);
 
 
             //Controller 2
-            pixelCollector.updateServos(gamepad2.x, gamepad2.b, gamepad2.a);
+            pixelCollector.updateServos(gamepad2.x, gamepad2.a, gamepad2.b, gamepad2.right_bumper);
             linearSlides.update(gamepad2.y);
+
         }
     }
 
