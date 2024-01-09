@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.Centerstage;
 
 import androidx.annotation.NonNull;
 
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -74,7 +72,7 @@ public class PixelCollector
     private ServoToggle wristToggle;
     private ServoToggle launcherToggle;
 
-    private ServoToggle launcherToggle2;
+    private ServoToggle wristToggle2;
   //  private ServoToggle intakeToggle;
 
     public PixelCollector(@NonNull HardwareMap map, String wristName, String trapdoorName, String launcherName)
@@ -88,7 +86,7 @@ public class PixelCollector
         trapdoorToggle = new ServoToggle(this::toggleTrapdoorPosition);
         wristToggle = new ServoToggle(this::toggleWristPosition);
         launcherToggle = new ServoToggle(this::toggleLauncherPosition);
-        launcherToggle2 = new ServoToggle(this:: moveWristMid);
+        wristToggle2 = new ServoToggle(this:: moveWristMid);
         // intakeToggle = new ServoToggle(this::toggleIntake);
     }
 
@@ -198,7 +196,7 @@ public class PixelCollector
         trapdoorToggle.update(trapdoorButton);
         wristToggle.update(wristButton);
         launcherToggle.update(launcherButton);
-        launcherToggle2.update(xd);
+        wristToggle2.update(xd);
 
         //intakeToggle.update(intakeButton);
 
