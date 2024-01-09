@@ -5,53 +5,60 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class HookMechanism {
+public class HookMechanism
+{
 
-    DcMotor motor;
+    DcMotor linearActuator;
     Servo hook;
     ServoToggle hookToggle;
-    ServoToggle motorToggle;
+    ServoToggle linearActuatorToggle;
 
-    boolean hookState;
-    boolean motorState;
+    State hookState;
+    State linearActuatorState;
 
     final int targetPos = 10;
     final double hookPos = 0.7;
 
     public HookMechanism(HardwareMap map, String motorName, String hookName)
     {
-        hookState = false;
-        motorState = false;
-        motor = map.get(DcMotor.class, motorName);
+
+        linearActuator = map.get(DcMotor.class, motorName);
+
+
+        linearActuator.setDirection(DcMotor.Direction.FORWARD);
+
+
+        linearActuator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        linearActuator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        linearActuator.setTargetPosition(targetPos);
+        linearActuator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        linearActuatorToggle = new ServoToggle(this::toggleMotor);
+        linearActuatorState = State.INACTIVE;
+
+        hookState = State.INACTIVE;
         hook = map.get(Servo.class, hookName);
-
-        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motor.setTargetPosition(targetPos);
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        motorToggle = new ServoToggle(this::toggleMotor);
         hookToggle = new ServoToggle(this::toggleHook);
 
     }
 
     public void toggleMotor()
     {
-        if(motorState)
+        if(linearActuatorState == State.ACTIVE)
         {
-            motor.setTargetPosition(0);
-            motor.setPower(0.5);
+            linearActuator.setTargetPosition(0);
+            linearActuator.setPower(0.5);
         }
         else
         {
-            motor.setTargetPosition(targetPos);
-            motor.setPower(0.5);
+            linearActuator.setTargetPosition(-targetPos);
+            linearActuator.setPower(0.5);
         }
     }
 
     public void toggleHook()
     {
-        if(hookState)
+        if(hookState == State.ACTIVE)
         {
             hook.setPosition(0);
         }
@@ -63,7 +70,7 @@ public class HookMechanism {
 
     public void update(Gamepad pad)
     {
-        motorToggle.update(pad.y);
+        linearActuatorToggle.update(pad.y);
         hookToggle.update(pad.x);
 
     }

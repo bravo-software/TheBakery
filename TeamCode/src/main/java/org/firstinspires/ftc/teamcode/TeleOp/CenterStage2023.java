@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Centerstage.PixelCollector;
 import org.firstinspires.ftc.teamcode.Core.DriveTrain;
 import org.firstinspires.ftc.teamcode.Core.HookMechanism;
+import org.firstinspires.ftc.teamcode.Core.Launcher;
 import org.firstinspires.ftc.teamcode.Core.LinearSlides;
 import org.firstinspires.ftc.teamcode.Core.Vision;
 
@@ -13,16 +14,13 @@ import org.firstinspires.ftc.teamcode.Core.Vision;
 public class CenterStage2023 extends LinearOpMode {
 
     public DriveTrain driveTrain;
+
     private LinearSlides linearSlides;
-    private final int linearSlidesPosition = 1540;
-
-    private final int linearInitializationSlidesPosition = 100;
-
-    private LinearSlides temp;
 
     private Vision visionEngine;
     private PixelCollector pixelCollector;
     private HookMechanism hookMechanism;
+    private Launcher launcher;
 
     @Override
     public void runOpMode()
@@ -32,11 +30,14 @@ public class CenterStage2023 extends LinearOpMode {
         //camera stuff
         visionEngine = new Vision(hardwareMap, "Webcam 1");
         //Linear Slides
+        int linearSlidesPosition = 1540;
         linearSlides = new LinearSlides(hardwareMap, "Slides", linearSlidesPosition);
         //PixelCollector
-        pixelCollector = new PixelCollector(hardwareMap, "wrist", "trapdoor", "launcher");
+        pixelCollector = new PixelCollector(hardwareMap, "wrist", "claw");
 
-        hookMechanism = new HookMechanism(hardwareMap, "haning", "hook");
+        hookMechanism = new HookMechanism(hardwareMap, "hanging", "hook");
+
+        launcher = new Launcher(hardwareMap, "launcher");
 
 
 
@@ -52,11 +53,11 @@ public class CenterStage2023 extends LinearOpMode {
         while (opModeIsActive())
         {
             telemetry.clear();
-            telemetry.addData("Slides Pos", "" + linearSlides.motor.getCurrentPosition());
-            telemetry.addData("FR Pos", "" + driveTrain.MotorFR.getCurrentPosition());
-            telemetry.addData("FL Pos", "" + driveTrain.MotorFL.getCurrentPosition());
-            telemetry.addData("BR Pos", "" + driveTrain.MotorBR.getCurrentPosition());
-            telemetry.addData("BL Pos", "" + driveTrain.MotorBL.getCurrentPosition());
+            telemetry.addData("Slides Pos", String.valueOf(linearSlides.motor.getCurrentPosition()));
+            telemetry.addData("FR Pos", String.valueOf(driveTrain.MotorFR.getCurrentPosition()));
+            telemetry.addData("FL Pos", String.valueOf(driveTrain.MotorFL.getCurrentPosition()));
+            telemetry.addData("BR Pos", String.valueOf(driveTrain.MotorBR.getCurrentPosition()));
+            telemetry.addData("BL Pos", String.valueOf(driveTrain.MotorBL.getCurrentPosition()));
             telemetry.update();
 
 
@@ -66,8 +67,9 @@ public class CenterStage2023 extends LinearOpMode {
 
 
             //Controller 2
-            pixelCollector.updateServos(gamepad2.x, gamepad2.a, gamepad2.b, gamepad2.right_bumper);
+            pixelCollector.updateServos(gamepad2.x, gamepad2.right_bumper, gamepad2.left_bumper, gamepad2.a);
             linearSlides.update(gamepad2.y);
+            launcher.update(gamepad2.b);
 
         }
     }
