@@ -19,26 +19,14 @@ public class PixelCollector
         INACTIVE
     }
 
-    /** CRServo for intake mechanism. */
-   // private CRServo intake;
-
-    /** Current state of intake (ACTIVE = running, INACTIVE = stopped). */
-    //private State intakeState = State.INACTIVE;
-
-
-    private Servo launcher;
-
-    private double launcherLow = 1;
-
-    private double launcherHigh = 0.5;
-
-    private State launcherPosition = State.INACTIVE;
-
     /** Servo for controlling the wrist. */
     private Servo wrist;
 
+    /** High position value for wrist servo. */
+    private double wristLow = 0.35;
+
     /** Low position value for wrist servo. */
-    private double wristLow = 0.3;
+    private double wristMid = 0.3;
 
     /** High position value for wrist servo. */
     private double wristHigh = 0.1;
@@ -46,63 +34,51 @@ public class PixelCollector
     /** Current wrist position (ACTIVE = high, INACTIVE = low). */
     private State wristPosition = State.ACTIVE;
 
-    /** Servo for trapdoor mechanism. */
-    private Servo trapdoor;
+    /** Servo for claw mechanism. */
+    private Servo claw;
 
-    /** Open position value for trapdoor servo. */
+    /** Open position value for claw servo. */
+    private double clawOpenPosition = 0.51;
 
-    private double trapdoorOpenPosition = 0.53;
+    /** Close position value for claw servo. */
+    private double clawClosePosition = 0.3;
 
-    /** Close position value for trapdoor servo. */
-    private double trapdoorClosePosition = 0.3;
-
-    /** Current state of trapdoor (ACTIVE = open, INACTIVE = closed). */
-    private State trapdoorState = State.INACTIVE;
+    /** Current state of claw (ACTIVE = open, INACTIVE = closed). */
+    private State clawState = State.INACTIVE;
 
     /**
      * Initializes intake, wrist, and trapdoor components.
      *
      * @param map           Hardware map for robot configurations.
- //    * @param intakeName    Name of intake CRServo.
      * @param wristName     Name of wrist Servo.
-     * @param trapdoorName  Name of trapdoor Servo.
+     * @param clawName      Name of trapdoor Servo.
      */
 
-    private ServoToggle trapdoorToggle;
+    private ServoToggle clawToggle;
     private ServoToggle wristToggle;
+<<<<<<< HEAD
     private ServoToggle launcherToggle;
 
     private ServoToggle wristToggle2;
   //  private ServoToggle intakeToggle;
 
     public PixelCollector(@NonNull HardwareMap map, String wristName, String trapdoorName, String launcherName)
+=======
+    public PixelCollector(@NonNull HardwareMap map, String wristName, String clawName)
+>>>>>>> fa99ac275f2b570d45dadb3fe52f96d5722a6c37
     {
-        //intake = map.get(CRServo.class, intakeName);
         wrist = map.get(Servo.class, wristName);
-        trapdoor = map.get(Servo.class, trapdoorName);
-        launcher = map.get(Servo.class, launcherName);
-      // intake.setDirection(CRServo.Direction.REVERSE);
+        claw = map.get(Servo.class, clawName);
 
-        trapdoorToggle = new ServoToggle(this::toggleTrapdoorPosition);
+        clawToggle = new ServoToggle(this::toggleClawPosition);
         wristToggle = new ServoToggle(this::toggleWristPosition);
+<<<<<<< HEAD
         launcherToggle = new ServoToggle(this::toggleLauncherPosition);
         wristToggle2 = new ServoToggle(this:: moveWristMid);
         // intakeToggle = new ServoToggle(this::toggleIntake);
+=======
+>>>>>>> fa99ac275f2b570d45dadb3fe52f96d5722a6c37
     }
-
-    //** Toggles intake between running and stopped states. */
-    //public void toggleIntake() {
-        //if (intakeState != State.ACTIVE) {
-            //runIntake();
-        //}
-        //intake.setPower(1.0);
-
-//        if (intakeState == State.ACTIVE)
-//
-//            stopIntake();
-//        else
-//            runIntake();
-    //}
 
     /** Toggles wrist position between high and low. */
     public void toggleWristPosition()
@@ -117,61 +93,28 @@ public class PixelCollector
         wrist.setPosition(0.5);
     }
 
-    /** Toggles trapdoor between open and closed positions. */
-    public void toggleTrapdoorPosition() {
-        if (trapdoorState == State.ACTIVE)
-            closeTrapdoor();
+    /** Toggles claw between open and closed positions. */
+    public void toggleClawPosition() {
+        if (clawState == State.ACTIVE)
+            closeClaw();
         else
-            openTrapdoor();
+            openClaw();
     }
 
-    /** Sets trapdoor to open position. */
-    public void openTrapdoor()
+    /** Sets claw to open position. */
+    public void openClaw()
     {
-        trapdoorState = State.ACTIVE;
-        trapdoor.setPosition(trapdoorOpenPosition);
+        clawState = State.ACTIVE;
+        claw.setPosition(clawOpenPosition);
     }
 
-    /** Sets trapdoor to closed position. */
-    public void closeTrapdoor()
+    /** Sets claw to closed position. */
+    public void closeClaw()
     {
-        trapdoorState = State.INACTIVE;
-        trapdoor.setPosition(trapdoorClosePosition);
+        clawState = State.INACTIVE;
+        claw.setPosition(clawClosePosition);
     }
 
-    public void toggleLauncherPosition() {
-        if (launcherPosition == State.INACTIVE)
-            closeLauncher();
-        else
-            openLauncher();
-    }
-
-    public void openLauncher()
-    {
-        launcherPosition = State.INACTIVE;
-        launcher.setPosition(launcherHigh);
-    }
-
-    public void closeLauncher()
-    {
-        launcherPosition = State.ACTIVE;
-        launcher.setPosition(launcherLow);
-    }
-
-    /** Activates the intake mechanism. */
-//    public void runIntake()
-//    {
-//
-//        intakeState = State.ACTIVE;
-//        intake.setPower(1.0);
-//    }
-
-    /** Stops the intake mechanism. */
-//    private void stopIntake()
-//    {
-//        intakeState = State.INACTIVE;
-//        intake.setPower(0);
-//    }
 
     /** Sets wrist to its low position. */
     private void setWristLow()
@@ -187,12 +130,19 @@ public class PixelCollector
         wrist.setPosition(wristHigh);
     }
 
-    private double getTrapdoorPosition() {
-        return trapdoor.getPosition();
+    private void setWristMid()
+    {
+        wristPosition = State.ACTIVE;
+        wrist.setPosition(wristMid);
     }
 
-    public void updateServos(boolean trapdoorButton, boolean wristButton, boolean launcherButton, boolean xd)
+    private double getClawPosition() {
+        return claw.getPosition();
+    }
+
+    public void updateServos(boolean clawButton, boolean wristLow , boolean wrisHigh, boolean wristMid)
     {
+<<<<<<< HEAD
         trapdoorToggle.update(trapdoorButton);
         wristToggle.update(wristButton);
         launcherToggle.update(launcherButton);
@@ -205,5 +155,15 @@ public class PixelCollector
 //        else
 //            stopIntake();
 //        intakeToggle.update(intakeButton);
+=======
+        if (wristLow)
+            setWristLow();
+        else if (wrisHigh)
+            setWristHigh();
+        else if (wristMid)
+            setWristMid();
+        clawToggle.update(clawButton);
+//        wristToggle.update(wristButton);
+>>>>>>> fa99ac275f2b570d45dadb3fe52f96d5722a6c37
     }
 }

@@ -11,12 +11,15 @@ public class ServoToggle
 
     private final ToggleAction action;
 
-    public ServoToggle(ToggleAction action) {
+    public ServoToggle(ToggleAction action)
+    {
         this.action = action;
     }
 
-    public void update(boolean currentButtonState) {
-        if (currentButtonState && !lastButtonState) {
+    public void update(boolean currentButtonState)
+    {
+        if (currentButtonState && !lastButtonState)
+        {
             action.execute();
         }
         lastButtonState = currentButtonState;
