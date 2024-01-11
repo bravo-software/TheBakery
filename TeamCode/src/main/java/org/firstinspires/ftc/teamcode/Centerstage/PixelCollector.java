@@ -6,17 +6,17 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Core.ServoToggle;
+import org.firstinspires.ftc.teamcode.Core.State;
 
 /** Manages the PixelCollector mechanism in an FTC robot, controlling intake, wrist, and trapdoor. */
 public class PixelCollector
 {
-    /** Represents operational states of PixelCollector components */
-    private enum State
+    enum WristPosition
     {
-        /** Indicates the component is operational (e.g., open, running, up). */
-        ACTIVE,
-        /** Indicates the component is not operational (e.g., closed, stopped, down). */
-        INACTIVE
+        LOW,
+        MID_GOING_UP,
+        MID_GOING_DOWN,
+        HIGH
     }
 
     /** Servo for controlling the wrist. */
@@ -32,7 +32,7 @@ public class PixelCollector
     private double wristHigh = 0.1;
 
     /** Current wrist position (ACTIVE = high, INACTIVE = low). */
-    private State wristPosition = State.ACTIVE;
+    private WristPosition wristPosition = WristPosition.MID_GOING_UP;
 
     /** Servo for claw mechanism. */
     private Servo claw;
@@ -68,10 +68,22 @@ public class PixelCollector
     /** Toggles wrist position between high and low. */
     public void toggleWristPosition()
     {
-        if (wristPosition == State.ACTIVE)
-            setWristLow();
-        else
+        if (wristPosition == WristPosition.LOW) {
+            setWristMid();
+            wristPosition = WristPosition.MID_GOING_UP;
+        }
+        else if(wristPosition == WristPosition.MID_GOING_UP) {
             setWristHigh();
+            wristPosition = WristPosition.HIGH;
+        }
+        else if(wristPosition == WristPosition.HIGH) {
+            setWristMid();
+            wristPosition = WristPosition.MID_GOING_DOWN;
+        }
+        else if(wristPosition == WristPosition.MID_GOING_DOWN) {
+            setWristLow();
+            wristPosition = WristPosition.LOW;
+        }
     }
 
     public void moveWristMid() {
@@ -104,20 +116,17 @@ public class PixelCollector
     /** Sets wrist to its low position. */
     private void setWristLow()
     {
-        wristPosition = State.INACTIVE;
         wrist.setPosition(wristLow);
     }
 
     /** Sets wrist to its high position. */
     private void setWristHigh()
     {
-        wristPosition = State.ACTIVE;
         wrist.setPosition(wristHigh);
     }
 
     private void setWristMid()
     {
-        wristPosition = State.ACTIVE;
         wrist.setPosition(wristMid);
     }
 
@@ -125,15 +134,9 @@ public class PixelCollector
         return claw.getPosition();
     }
 
-    public void updateServos(boolean clawButton, boolean wristLow , boolean wrisHigh, boolean wristMid)
+    public void updateServos(boolean clawButton, boolean wristButton)
     {
-        if (wristLow)
-            setWristLow();
-        else if (wrisHigh)
-            setWristHigh();
-        else if (wristMid)
-            setWristMid();
+        wristToggle.update(wristButton);
         clawToggle.update(clawButton);
-//        wristToggle.update(wristButton);
     }
 }

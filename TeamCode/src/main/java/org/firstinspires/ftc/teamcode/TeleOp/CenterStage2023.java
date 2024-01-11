@@ -58,6 +58,8 @@ public class CenterStage2023 extends LinearOpMode {
             telemetry.addData("FL Pos", String.valueOf(driveTrain.MotorFL.getCurrentPosition()));
             telemetry.addData("BR Pos", String.valueOf(driveTrain.MotorBR.getCurrentPosition()));
             telemetry.addData("BL Pos", String.valueOf(driveTrain.MotorBL.getCurrentPosition()));
+            telemetry.addData("Linear Actuator Pos", String.valueOf(hookMechanism.getLinearActuatorPosition()));
+            telemetry.addData("Hook Pos", String.valueOf(hookMechanism.getHookPosition()));
             telemetry.update();
 
 
@@ -67,7 +69,7 @@ public class CenterStage2023 extends LinearOpMode {
 
 
             //Controller 2
-            pixelCollector.updateServos(gamepad2.x, gamepad2.right_bumper, gamepad2.left_bumper, gamepad2.a);
+            pixelCollector.updateServos(gamepad2.x, gamepad2.a);
             linearSlides.update(gamepad2.y);
             launcher.update(gamepad2.b);
 

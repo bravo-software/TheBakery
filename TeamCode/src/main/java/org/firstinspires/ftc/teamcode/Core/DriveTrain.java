@@ -61,7 +61,11 @@ public class DriveTrain
         setDirection(DcMotor.Direction.FORWARD);
         setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Stop();
-        initEncoders();
+//        initEncoders();
+//        MotorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     /**
