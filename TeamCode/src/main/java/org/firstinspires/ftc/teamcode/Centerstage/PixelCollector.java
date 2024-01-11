@@ -56,28 +56,13 @@ public class PixelCollector
 
     private ServoToggle clawToggle;
     private ServoToggle wristToggle;
-<<<<<<< HEAD
-    private ServoToggle launcherToggle;
-
-    private ServoToggle wristToggle2;
-  //  private ServoToggle intakeToggle;
-
-    public PixelCollector(@NonNull HardwareMap map, String wristName, String trapdoorName, String launcherName)
-=======
     public PixelCollector(@NonNull HardwareMap map, String wristName, String clawName)
->>>>>>> fa99ac275f2b570d45dadb3fe52f96d5722a6c37
     {
         wrist = map.get(Servo.class, wristName);
         claw = map.get(Servo.class, clawName);
 
         clawToggle = new ServoToggle(this::toggleClawPosition);
         wristToggle = new ServoToggle(this::toggleWristPosition);
-<<<<<<< HEAD
-        launcherToggle = new ServoToggle(this::toggleLauncherPosition);
-        wristToggle2 = new ServoToggle(this:: moveWristMid);
-        // intakeToggle = new ServoToggle(this::toggleIntake);
-=======
->>>>>>> fa99ac275f2b570d45dadb3fe52f96d5722a6c37
     }
 
     /** Toggles wrist position between high and low. */
@@ -142,20 +127,6 @@ public class PixelCollector
 
     public void updateServos(boolean clawButton, boolean wristLow , boolean wrisHigh, boolean wristMid)
     {
-<<<<<<< HEAD
-        trapdoorToggle.update(trapdoorButton);
-        wristToggle.update(wristButton);
-        launcherToggle.update(launcherButton);
-        wristToggle2.update(xd);
-
-        //intakeToggle.update(intakeButton);
-
-//        if (intakeButton)
-//            runIntake();
-//        else
-//            stopIntake();
-//        intakeToggle.update(intakeButton);
-=======
         if (wristLow)
             setWristLow();
         else if (wrisHigh)
@@ -164,6 +135,5 @@ public class PixelCollector
             setWristMid();
         clawToggle.update(clawButton);
 //        wristToggle.update(wristButton);
->>>>>>> fa99ac275f2b570d45dadb3fe52f96d5722a6c37
     }
 }

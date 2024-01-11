@@ -11,7 +11,7 @@ public class CenterStage2023 extends LinearOpMode
     {
         driver = new Driver(hardwareMap);
 
-        driver.foward(510);
+        driver.forward(510);
 
     }
 }

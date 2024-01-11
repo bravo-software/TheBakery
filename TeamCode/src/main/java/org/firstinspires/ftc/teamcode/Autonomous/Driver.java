@@ -23,7 +23,7 @@ public class Driver
     private int turnTimeValue180Mill = 2000;
 
 
-    public void foward_park()
+    public void forward_park()
     {
         driveTrain.DirectFoward(0.5);
         try
@@ -50,7 +50,7 @@ public class Driver
     }
 
     //distance in mm
-    public void foward(double distance)
+    public void forward (double distance)
     {
         double rotations = distance / (Math.PI * diameter_mm);
         int ticks = (int)(rotations*tickPerRotation);
@@ -62,8 +62,8 @@ public class Driver
         driveTrain.Stop();
     }
 
-    // Add move by ticks to provide options for differnt calls
-    public void foward_ticks(int ticks)
+    // Add move by ticks to provide options for different calls
+    public void forward_ticks(int ticks)
     {
         driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         driveTrain.setTargetPosition(ticks);
@@ -73,8 +73,8 @@ public class Driver
         driveTrain.Stop();
     }
 
-    // Add move Continously to provide option to run until sensor input used to stop
-    public void foward_cont()
+    // Add move Continuously to provide option to run until sensor input used to stop
+    public void forward_cont()
     {
         driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         driveTrain.setPower(0.5);
