@@ -38,10 +38,11 @@ public class PixelCollector
     private Servo claw;
 
     /** Open position value for claw servo. */
-    private double clawOpenPosition = 0.51;
+
+    private double clawOpenPosition = 0.3;
 
     /** Close position value for claw servo. */
-    private double clawClosePosition = 0.3;
+    private double clawClosePosition = 0.51;
 
     /** Current state of claw (ACTIVE = open, INACTIVE = closed). */
     private State clawState = State.INACTIVE;
@@ -105,7 +106,7 @@ public class PixelCollector
     public void closeClaw()
     {
         clawState = State.INACTIVE;
-        claw.setPosition(-clawClosePosition);
+        claw.setPosition(clawClosePosition);
     }
 
 

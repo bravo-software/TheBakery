@@ -20,20 +20,29 @@ public class Scorer
     public void score(Driver driver)
     {
         slides.extend();
+        wait(1500);
         pixelCollector.openClaw();
+        wait(1500);
         pixelCollector.setWristLow();
+        wait(1500);
 
-        driver.fowardSetDistance(-0.5);
+        driver.backwardsSetDistance(0.5);
     }
 
     public void load() {
+        pixelCollector.setWristLow();
+        wait(1000);
         pixelCollector.closeClaw();
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        wait(1000);
         pixelCollector.setWristHigh();
+    }
+
+    public void wait(int milliseconds)
+    {
+        try
+        {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException ignored) {}
     }
 
 }

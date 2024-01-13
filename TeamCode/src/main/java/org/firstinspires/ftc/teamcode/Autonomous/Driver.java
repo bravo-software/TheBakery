@@ -9,7 +9,7 @@ public class Driver
 {
     DriveTrain driveTrain;
     int timeFor90Degrees = 270;
-    double inchesPerSecond = 26.02;
+    double inchesPerSecond = 37.5;
     int tileLength = 24;
 
     public Driver(HardwareMap map)
@@ -29,17 +29,10 @@ public class Driver
         forward(time);
     }
 
-    public void forward_park()
+    public void backwardsSetDistance(double inches)
     {
-        driveTrain.DirectFoward(0.5);
-        try
-        {
-            Thread.sleep(1000);
-        }
-        catch (InterruptedException e)
-        {
-
-        }
+        int time = (int) ((inches / inchesPerSecond) * 1000);
+        backwards(time);
     }
 
     public void turn_park_90_intervalsClockwise(int angle)
@@ -71,7 +64,22 @@ public class Driver
         driveTrain.DirectFoward(-0.5);
         try
         {
-            Thread.sleep(3000);
+            Thread.sleep(time);
+        }
+        catch (InterruptedException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        driveTrain.Stop();
+    }
+
+    public void backwards(int time)
+    {
+        driveTrain.DirectFoward(0.5);
+        try
+        {
+            Thread.sleep(time);
         }
         catch (InterruptedException e)
         {
