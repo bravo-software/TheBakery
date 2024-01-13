@@ -13,13 +13,14 @@ public class AutonomousEasy2024 extends LinearOpMode
     {
         driver = new Driver(hardwareMap);
         scorer = new Scorer(hardwareMap);
+        scorer.pixelCollector.setWristMid();
         waitForStart();
         scorer.load();
-        driver.fowardSetDistance(tile_length);
-        driver.turn_park_90_intervalsClockwise(90);
-        driver.fowardSetDistance(tile_length);
-        driver.turn_park_90_intervalsCounterClockwise(90);
-        driver.fowardSetDistance(tile_length * 2);
-        scorer.score(driver);
+//        driver.fowardSetDistance(tile_length);
+//        driver.turn_park_90_intervalsClockwise(90);
+//        driver.fowardSetDistance(tile_length);
+//        driver.turn_park_90_intervalsCounterClockwise(90);
+//        driver.fowardSetDistance(tile_length * 2);
+//        scorer.score(driver);
     }
 }

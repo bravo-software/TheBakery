@@ -8,12 +8,12 @@ import org.firstinspires.ftc.teamcode.Core.LinearSlides;
 public class Scorer
 {
     private LinearSlides slides;
-    private PixelCollector pixelCollector;
+    public PixelCollector pixelCollector;
 
 
     public Scorer(HardwareMap map)
     {
-        this.slides = new LinearSlides(map, "slides", 1540);
+        this.slides = new LinearSlides(map, "Slides", 1540);
         this.pixelCollector = new PixelCollector(map, "wrist", "claw");
     }
 
@@ -26,9 +26,13 @@ public class Scorer
         driver.fowardSetDistance(-0.5);
     }
 
-    public void load()
-    {
+    public void load() {
         pixelCollector.closeClaw();
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         pixelCollector.setWristHigh();
     }
 

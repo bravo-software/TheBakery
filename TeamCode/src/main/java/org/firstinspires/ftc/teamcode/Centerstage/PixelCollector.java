@@ -105,7 +105,7 @@ public class PixelCollector
     public void closeClaw()
     {
         clawState = State.INACTIVE;
-        claw.setPosition(clawClosePosition);
+        claw.setPosition(-clawClosePosition);
     }
 
 
