@@ -10,8 +10,13 @@ public class CenterStage2023 extends LinearOpMode
     public void runOpMode()
     {
         driver = new Driver(hardwareMap);
+        waitForStart();
+        driver.turn_park_90_intervals(360);
 
+<<<<<<< HEAD
         driver.forward(510);
+=======
+>>>>>>> 1e310eba4fa30c91c3ee56f82619d76904484f92
 
     }
 }

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Core.DriveTrain;
@@ -9,8 +8,8 @@ import org.firstinspires.ftc.teamcode.Core.DriveTrain;
 public class Driver
 {
    DriveTrain driveTrain;
-   double tickPerRotation = 537.6;
-   double diameter_mm = 96;
+   int timeFor90Degrees = 270;
+   double inchesPerSecond = 26.02;
     public Driver(HardwareMap map)
     {
         driveTrain = new DriveTrain(map, "fL", "bL", "fR", "bR");
@@ -35,21 +34,20 @@ public class Driver
 
         }
     }
-    public void turn_park(double angle)
+    public void turn_park_90_intervals(int angle)
     {
-        driveTrain.DirectTurn(0.5);
-        int time = turnTimeValue180Mill * (int)(angle/180);
-        try
+        int intervals = (int) (angle / 90);
+        for(int i = 0; i<intervals; i++)
         {
-            Thread.sleep(time);
-        }
-        catch (InterruptedException e)
-        {
-
+            driveTrain.DirectTurn(1);
+            try {Thread.sleep(timeFor90Degrees);} catch (InterruptedException ignored) {}
+            driveTrain.Stop();
+            try {Thread.sleep(250);} catch (InterruptedException ignored) {}
         }
     }
 
     //distance in mm
+<<<<<<< HEAD
     public void forward (double distance)
     {
         double rotations = distance / (Math.PI * diameter_mm);
@@ -82,6 +80,22 @@ public class Driver
         while(driveTrain.isBusy()) {}
     }
 
+=======
+    public void foward(int time) {
+        driveTrain.DirectFoward(-0.5);
+        try
+        {
+            Thread.sleep(3000);
+        }
+        catch (InterruptedException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        driveTrain.Stop();
+    }
+
+>>>>>>> 1e310eba4fa30c91c3ee56f82619d76904484f92
 //    public void turn(double angle)
 //    {
 //        driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
