@@ -86,10 +86,6 @@ public class PixelCollector
         }
     }
 
-    public void moveWristMid() {
-        wrist.setPosition(0.5);
-    }
-
     /** Toggles claw between open and closed positions. */
     public void toggleClawPosition() {
         if (clawState == State.ACTIVE)
@@ -114,18 +110,18 @@ public class PixelCollector
 
 
     /** Sets wrist to its low position. */
-    private void setWristLow()
+    public void setWristLow()
     {
         wrist.setPosition(wristLow);
     }
 
     /** Sets wrist to its high position. */
-    private void setWristHigh()
+    public void setWristHigh()
     {
         wrist.setPosition(wristHigh);
     }
 
-    private void setWristMid()
+    public void setWristMid()
     {
         wrist.setPosition(wristMid);
     }

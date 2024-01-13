@@ -10,6 +10,8 @@ public class Driver
     DriveTrain driveTrain;
     int timeFor90Degrees = 270;
     double inchesPerSecond = 26.02;
+    int tileLength = 24;
+
     public Driver(HardwareMap map)
     {
         driveTrain = new DriveTrain(map, "fL", "bL", "fR", "bR");
@@ -21,6 +23,11 @@ public class Driver
 
     private int turnTimeValue180Mill = 2000;
 
+    public void fowardSetDistance(double inches)
+    {
+        int time = (int) ((inches / inchesPerSecond) * 1000);
+        forward(time);
+    }
 
     public void forward_park()
     {
@@ -34,12 +41,25 @@ public class Driver
 
         }
     }
-    public void turn_park_90_intervals(int angle)
+
+    public void turn_park_90_intervalsClockwise(int angle)
     {
         int intervals = (int) (angle / 90);
         for(int i = 0; i<intervals; i++)
         {
             driveTrain.DirectTurn(1);
+            try {Thread.sleep(timeFor90Degrees);} catch (InterruptedException ignored) {}
+            driveTrain.Stop();
+            try {Thread.sleep(250);} catch (InterruptedException ignored) {}
+        }
+    }
+
+    public void turn_park_90_intervalsCounterClockwise(int angle)
+    {
+        int intervals = (int) (angle / 90);
+        for(int i = 0; i<intervals; i++)
+        {
+            driveTrain.DirectTurn(-1);
             try {Thread.sleep(timeFor90Degrees);} catch (InterruptedException ignored) {}
             driveTrain.Stop();
             try {Thread.sleep(250);} catch (InterruptedException ignored) {}
