@@ -7,9 +7,9 @@ import org.firstinspires.ftc.teamcode.Core.DriveTrain;
 
 public class Driver
 {
-   DriveTrain driveTrain;
-   int timeFor90Degrees = 270;
-   double inchesPerSecond = 26.02;
+    DriveTrain driveTrain;
+    int timeFor90Degrees = 270;
+    double inchesPerSecond = 26.02;
     public Driver(HardwareMap map)
     {
         driveTrain = new DriveTrain(map, "fL", "bL", "fR", "bR");
@@ -47,41 +47,7 @@ public class Driver
     }
 
     //distance in mm
-<<<<<<< HEAD
-    public void forward (double distance)
-    {
-        double rotations = distance / (Math.PI * diameter_mm);
-        int ticks = (int)(rotations*tickPerRotation);
-        driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        driveTrain.setTargetPosition(ticks);
-        driveTrain.setPower(0.5);
-        driveTrain.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        while( driveTrain.isBusy() ) {}
-        driveTrain.Stop();
-    }
-
-    // Add move by ticks to provide options for different calls
-    public void forward_ticks(int ticks)
-    {
-        driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        driveTrain.setTargetPosition(ticks);
-        driveTrain.setPower(0.5);
-        driveTrain.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        while(driveTrain.isBusy()) {}
-        driveTrain.Stop();
-    }
-
-    // Add move Continuously to provide option to run until sensor input used to stop
-    public void forward_cont()
-    {
-        driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        driveTrain.setPower(0.5);
-        driveTrain.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        while(driveTrain.isBusy()) {}
-    }
-
-=======
-    public void foward(int time) {
+    public void forward(int time) {
         driveTrain.DirectFoward(-0.5);
         try
         {
@@ -95,7 +61,6 @@ public class Driver
         driveTrain.Stop();
     }
 
->>>>>>> 1e310eba4fa30c91c3ee56f82619d76904484f92
 //    public void turn(double angle)
 //    {
 //        driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
