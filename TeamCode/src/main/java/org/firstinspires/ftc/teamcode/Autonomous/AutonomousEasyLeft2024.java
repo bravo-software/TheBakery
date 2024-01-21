@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="AutonomousEasy2024", group="Autonomous")
-public class AutonomousEasy2024 extends LinearOpMode
+@Autonomous(name="AutonomousEasyLeft2024", group="Autonomous")
+public class AutonomousEasyLeft2024 extends LinearOpMode
 {
     Driver driver;
     Scorer scorer;
@@ -16,18 +16,21 @@ public class AutonomousEasy2024 extends LinearOpMode
         scorer.pixelCollector.setWristMid();
         scorer.pixelCollector.openClaw();
         waitForStart();
-        scorer.load();
+//        scorer.load();
+        driver.fowardSetDistance(tile_length * 1.7);
+        scorer.wait(100);
+        scorer.pixelCollector.setWristHigh();
+        scorer.wait(100);
+        driver.backwardsSetDistance(tile_length * 0.2);
 //        scorer.wait(1000);
+//        driver.fowardSetDistance(tile_length * 1);
 //        driver.turn_park_90_intervalsClockwise(90);
-//        driver.fowardSetDistance(tile_length);
+//        driver.fowardSetDistance(tile_length * 1);
 //        scorer.wait(500);
 //        driver.turn_park_90_intervalsCounterClockwise(90);
 //        scorer.wait(1000);
 //        driver.fowardSetDistance(tile_length);
 //        scorer.wait(1000);
-//        driver.turn_park_90_intervalsClockwise(90);
-//        scorer.wait(1000);
-//        driver.fowardSetDistance(tile_length * 1);
-        scorer.score(driver);
+//        scorer.score(driver);
     }
 }

@@ -35,7 +35,7 @@ public class CenterStage2023 extends LinearOpMode {
         //PixelCollector
         pixelCollector = new PixelCollector(hardwareMap, "wrist", "claw");
 
-        hookMechanism = new HookMechanism(hardwareMap, "hanging", "hook");
+//        hookMechanism = new HookMechanism(hardwareMap, "hanging", "hook");
 
         launcher = new Launcher(hardwareMap, "launcher");
 
@@ -58,14 +58,14 @@ public class CenterStage2023 extends LinearOpMode {
             telemetry.addData("FL Pos", String.valueOf(driveTrain.MotorFL.getCurrentPosition()));
             telemetry.addData("BR Pos", String.valueOf(driveTrain.MotorBR.getCurrentPosition()));
             telemetry.addData("BL Pos", String.valueOf(driveTrain.MotorBL.getCurrentPosition()));
-            telemetry.addData("Linear Actuator Pos", String.valueOf(hookMechanism.getLinearActuatorPosition()));
-            telemetry.addData("Hook Pos", String.valueOf(hookMechanism.getHookPosition()));
+//            telemetry.addData("Linear Actuator Pos", String.valueOf(hookMechanism.getLinearActuatorPosition()));
+//            telemetry.addData("Hook Pos", String.valueOf(hookMechanism.getHookPosition()));
             telemetry.update();
 
 
             //Controller 1
             driveTrain.Drive(gamepad1);
-            hookMechanism.update(gamepad1);
+//            hookMechanism.update(gamepad1);
 
 
             //Controller 2

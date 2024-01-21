@@ -8,8 +8,8 @@ import org.firstinspires.ftc.teamcode.Core.DriveTrain;
 public class Driver
 {
     DriveTrain driveTrain;
-    int timeFor90Degrees = 270;
-    double inchesPerSecond = 37.5;
+    int timeFor90Degrees = 290;
+    double inchesPerSecond = 26.5;
     int tileLength = 24;
 
     public Driver(HardwareMap map)

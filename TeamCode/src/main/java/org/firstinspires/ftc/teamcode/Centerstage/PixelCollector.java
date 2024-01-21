@@ -23,10 +23,10 @@ public class PixelCollector
     private Servo wrist;
 
     /** High position value for wrist servo. */
-    private double wristLow = 0.35;
+    private double wristLow = 0.41;
 
     /** Low position value for wrist servo. */
-    private double wristMid = 0.3;
+    private double wristMid = 0.32;
 
     /** High position value for wrist servo. */
     private double wristHigh = 0.1;
