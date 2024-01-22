@@ -16,12 +16,12 @@ public class AutonomousEasyLeft2024 extends LinearOpMode
         scorer.pixelCollector.setWristMid();
         scorer.pixelCollector.openClaw();
         waitForStart();
-//        scorer.load();
-        driver.fowardSetDistance(tile_length * 1.7);
-        scorer.wait(100);
-        scorer.pixelCollector.setWristHigh();
-        scorer.wait(100);
-        driver.backwardsSetDistance(tile_length * 0.2);
+        scorer.load();
+//        driver.fowardSetDistance(tile_length * 1.7);
+//        scorer.wait(100);
+//        scorer.pixelCollector.setWristHigh();
+//        scorer.wait(100);
+//        driver.backwardsSetDistance(tile_length * 0.2);
 //        scorer.wait(1000);
 //        driver.fowardSetDistance(tile_length * 1);
 //        driver.turn_park_90_intervalsClockwise(90);
