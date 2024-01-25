@@ -23,7 +23,7 @@ public class Driver
 
     private int turnTimeValue180Mill = 2000;
 
-    public void fowardSetDistance(double inches)
+    public void forwardSetDistance(double inches)
     {
         int time = (int) ((inches / inchesPerSecond) * 1000);
         forward(time);
