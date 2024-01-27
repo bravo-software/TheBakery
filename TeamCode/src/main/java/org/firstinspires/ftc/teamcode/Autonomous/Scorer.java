@@ -36,7 +36,7 @@ public class Scorer
         wait(1000);
         pixelCollector.closeClaw();
         wait(1000);
-        pixelCollector.setWristHigh();
+        pixelCollector.xd();
     }
 
     public void wait(int milliseconds)

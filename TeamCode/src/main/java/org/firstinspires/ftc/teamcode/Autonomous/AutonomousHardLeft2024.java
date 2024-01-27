@@ -15,7 +15,7 @@ public class AutonomousHardLeft2024 extends LinearOpMode
         scorer = new Scorer(hardwareMap);
         waitForStart();
 //        scorer.load();
-        driver.fowardSetDistance(tile_length * 1.7);
+        driver.forwardSetDistance(tile_length * 1.7);
         scorer.pixelCollector.setWristHigh();
         driver.backwardsSetDistance(tile_length * 0.2);//        driver.turn_park_90_intervalsClockwise(90);
 //        driver.fowardSetDistance(tile_length * 1);
