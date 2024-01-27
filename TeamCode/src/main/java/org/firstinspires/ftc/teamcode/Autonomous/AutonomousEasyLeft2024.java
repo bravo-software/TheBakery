@@ -13,8 +13,7 @@ public class AutonomousEasyLeft2024 extends LinearOpMode
     {
         driver = new Driver(hardwareMap);
         scorer = new Scorer(hardwareMap);
-        scorer.pixelCollector.setWristMid();
-        scorer.pixelCollector.openClaw();
+
         waitForStart();
         scorer.load();
 //        driver.fowardSetDistance(tile_length * 1.7);

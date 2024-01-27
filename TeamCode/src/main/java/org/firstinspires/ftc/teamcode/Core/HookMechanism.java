@@ -38,7 +38,7 @@ public class HookMechanism
 
         hookState = State.INACTIVE;
         hook = map.get(Servo.class, hookName);
-        hook.setDirection(Servo.Direction.REVERSE);
+        hook.setDirection(Servo.Direction.FORWARD);
         hookToggle = new ServoToggle(this::toggleHook);
 
     }

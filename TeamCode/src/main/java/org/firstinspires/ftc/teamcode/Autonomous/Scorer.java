@@ -15,6 +15,8 @@ public class Scorer
     {
         this.slides = new LinearSlides(map, "Slides", 1540);
         this.pixelCollector = new PixelCollector(map, "wrist", "claw");
+        this.pixelCollector.setWristMid();
+        this.pixelCollector.openClaw();
     }
 
     public void score(Driver driver)

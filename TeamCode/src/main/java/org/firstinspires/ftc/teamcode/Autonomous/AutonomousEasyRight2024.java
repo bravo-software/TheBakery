@@ -13,8 +13,7 @@ public class AutonomousEasyRight2024 extends LinearOpMode
     {
         driver = new Driver(hardwareMap);
         scorer = new Scorer(hardwareMap);
-        scorer.pixelCollector.setWristMid();
-        scorer.pixelCollector.openClaw();
+
         waitForStart();
 //        scorer.load();
         scorer.wait(1000);

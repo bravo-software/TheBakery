@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.Core.DriveTrain;
 import org.firstinspires.ftc.teamcode.Core.HookMechanism;
 import org.firstinspires.ftc.teamcode.Core.Launcher;
 import org.firstinspires.ftc.teamcode.Core.LinearSlides;
-import org.firstinspires.ftc.teamcode.Core.Vision;
 
 @TeleOp(name="CenterStage2023", group="TeleOp")
 public class CenterStage2023 extends LinearOpMode {
@@ -17,7 +16,6 @@ public class CenterStage2023 extends LinearOpMode {
 
     private LinearSlides linearSlides;
 
-    private Vision visionEngine;
     private PixelCollector pixelCollector;
     private HookMechanism hookMechanism;
     private Launcher launcher;
@@ -27,15 +25,13 @@ public class CenterStage2023 extends LinearOpMode {
     {
 
         driveTrain = new DriveTrain(hardwareMap, "fL", "bL", "fR", "bR");
-        //camera stuff
-        visionEngine = new Vision(hardwareMap, "Webcam 1");
         //Linear Slides
         int linearSlidesPosition = 1540;
         linearSlides = new LinearSlides(hardwareMap, "Slides", linearSlidesPosition);
         //PixelCollector
         pixelCollector = new PixelCollector(hardwareMap, "wrist", "claw");
 
-//        hookMechanism = new HookMechanism(hardwareMap, "hanging", "hook");
+        hookMechanism = new HookMechanism(hardwareMap, "hanging", "hook");
 
         launcher = new Launcher(hardwareMap, "launcher");
 
@@ -65,7 +61,7 @@ public class CenterStage2023 extends LinearOpMode {
 
             //Controller 1
             driveTrain.Drive(gamepad1);
-//            hookMechanism.update(gamepad1);
+            hookMechanism.update(gamepad1);
 
 
             //Controller 2
