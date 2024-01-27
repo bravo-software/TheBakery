@@ -66,7 +66,7 @@ public class LinearSlides
     public void extend()
     {
         motor.setTargetPosition(extendedPosition);
-        motor.setPower(0.75);
+        motor.setPower(0.5);
         isExtended = true;
     }
 

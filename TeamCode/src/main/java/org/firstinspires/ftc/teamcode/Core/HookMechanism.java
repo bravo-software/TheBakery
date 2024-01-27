@@ -18,7 +18,7 @@ public class HookMechanism
     State linearActuatorState;
 
     final int targetPos = 7000;
-    final double hookPos = 0.7;
+    final double hookPos = 1;
 
     public HookMechanism(HardwareMap map, String motorName, String hookName)
     {
@@ -38,7 +38,7 @@ public class HookMechanism
 
         hookState = State.INACTIVE;
         hook = map.get(Servo.class, hookName);
-        hook.setDirection(Servo.Direction.FORWARD);
+        hook.setDirection(Servo.Direction.REVERSE);
         hookToggle = new ServoToggle(this::toggleHook);
 
     }
@@ -53,7 +53,7 @@ public class HookMechanism
         }
         else
         {
-            linearActuator.setTargetPosition(targetPos);
+            linearActuator.setTargetPosition(-targetPos);
             linearActuator.setPower(0.5);
             linearActuatorState = State.ACTIVE;
 

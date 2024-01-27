@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Core.LinearSlides;
 
 public class Scorer
 {
-    private LinearSlides slides;
+    public LinearSlides slides;
     public PixelCollector pixelCollector;
 
 
@@ -22,11 +22,13 @@ public class Scorer
     public void score(Driver driver)
     {
         slides.extend();
+        pixelCollector.setWristHigh();
         wait(1500);
         pixelCollector.openClaw();
         wait(1500);
         pixelCollector.setWristLow();
         wait(1500);
+        slides.reset();
 
         driver.backwardsSetDistance(0.5);
     }

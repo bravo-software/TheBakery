@@ -14,13 +14,13 @@ public class AutonomousHardLeft2024 extends LinearOpMode
         driver = new Driver(hardwareMap);
         scorer = new Scorer(hardwareMap);
         waitForStart();
-//        scorer.load();
-        driver.forwardSetDistance(tile_length * 1.7);
-        scorer.pixelCollector.setWristHigh();
-        driver.backwardsSetDistance(tile_length * 0.2);//        driver.turn_park_90_intervalsClockwise(90);
-//        driver.fowardSetDistance(tile_length * 1);
-//        driver.turn_park_90_intervalsCounterClockwise(90);
-//        driver.fowardSetDistance(tile_length * 0.50);
-//        scorer.score(driver);
+        scorer.load();
+        driver.forwardSetDistance(tile_length * 2.3);
+        driver.turn_park_90_intervalsCounterClockwise(90);
+        driver.forwardSetDistance(tile_length * 4);
+        driver.turn_park_90_intervalsCounterClockwise(90);
+        driver.forwardSetDistance(tile_length * 1);
+        driver.turn_park_90_intervalsClockwise(90);
+        scorer.score(driver);
     }
 }

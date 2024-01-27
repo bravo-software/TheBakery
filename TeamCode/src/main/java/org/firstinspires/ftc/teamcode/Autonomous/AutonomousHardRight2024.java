@@ -11,16 +11,31 @@ public class AutonomousHardRight2024 extends LinearOpMode
     int tile_length = 24; //in inches
     public void runOpMode()
     {
+//        driver = new Driver(hardwareMap);
+//        scorer = new Scorer(hardwareMap);
+//        waitForStart();
+//        scorer.load();
+//        driver.forwardSetDistance(tile_length * 2.3);
+//        driver.turn_park_90_intervalsClockwise(90);
+//        driver.forwardSetDistance(tile_length * 4);
+//        driver.turn_park_90_intervalsClockwise(90);
+//        driver.forwardSetDistance(tile_length * 1);
+//        driver.turn_park_90_intervalsCounterClockwise(90);
+//        scorer.score(driver);
+
         driver = new Driver(hardwareMap);
         scorer = new Scorer(hardwareMap);
         waitForStart();
-//        scorer.load();
-        driver.forwardSetDistance(tile_length * 2.3);
-        scorer.pixelCollector.setWristHigh();
-        driver.backwardsSetDistance(tile_length * 0.2);//        driver.turn_park_90_intervalsCounterClockwise(90);
-//        driver.fowardSetDistance(tile_length * 1);
-//        driver.turn_park_90_intervalsClockwise(90);
-//        driver.fowardSetDistance(tile_length * 0.50);
-//        scorer.score(driver);
+        scorer.load();
+        scorer.wait(1000);
+        scorer.score(driver);
+//        scorer.wait(1000);
+//        scorer.pixelCollector.setWristHigh();
+//        scorer.wait(1000);
+//        scorer.slides.extend();
+//        scorer.wait(1000);
+//        driver.forward(tile_length * 3);
+        scorer.wait(100000000);
+
     }
 }

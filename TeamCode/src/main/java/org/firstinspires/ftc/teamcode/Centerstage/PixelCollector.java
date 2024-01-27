@@ -23,13 +23,13 @@ public class PixelCollector
     private Servo wrist;
 
     /** High position value for wrist servo. */
-    private double wristLow = 0.39;
+    private double wristLow = 0.44;
 
     /** Low position value for wrist servo. */
-    private double wristMid = 0.32;
+    private double wristMid = 0.34;
 
     /** High position value for wrist servo. */
-    private double wristHigh = 0.1;
+    private double wristHigh = 0.12;
 
     /** Current wrist position (ACTIVE = high, INACTIVE = low). */
     private WristPosition wristPosition = WristPosition.MID_GOING_UP;
@@ -39,10 +39,10 @@ public class PixelCollector
 
     /** Open position value for claw servo. */
 
-    private double clawOpenPosition = 0.3;
+    private double clawOpenPosition = 0.7;
 
     /** Close position value for claw servo. */
-    private double clawClosePosition = 0.5;
+    private double clawClosePosition = 1;
 
     /** Current state of claw (ACTIVE = open, INACTIVE = closed). */
     private State clawState = State.INACTIVE;
