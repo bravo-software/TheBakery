@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Core;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -20,7 +22,7 @@ public class HookMechanism
     final int targetPos = 7000;
     final double hookPos = 1;
 
-    public HookMechanism(HardwareMap map, String motorName, String hookName)
+    public HookMechanism(@NonNull HardwareMap map, String motorName, String hookName)
     {
 
         linearActuator = map.get(DcMotor.class, motorName);

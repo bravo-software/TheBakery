@@ -5,15 +5,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Launcher
 {
-    private Servo launcher;
-
-    private double launcherLow = 1;
-
-    private double launcherHigh = 0.5;
+    //the final might break something
+    private final Servo launcher;
 
     private State launcherPosition = State.INACTIVE;
 
-    private ServoToggle launcherToggle;
+    private final ServoToggle launcherToggle;
 
     public Launcher(HardwareMap map, String launcherName)
     {
@@ -30,11 +27,13 @@ public class Launcher
     public void openLauncher()
     {
         launcherPosition = State.INACTIVE;
+        double launcherHigh = 0.5;
         launcher.setPosition(launcherHigh);
     }
     public void closeLauncher()
     {
         launcherPosition = State.ACTIVE;
+        double launcherLow = 1;
         launcher.setPosition(launcherLow);
     }
     public void update(boolean buttonState)

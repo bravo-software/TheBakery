@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Core.ServoToggle;
 import org.firstinspires.ftc.teamcode.Core.State;
 
 /** Manages the PixelCollector mechanism in an FTC robot, controlling intake, wrist, and trapdoor. */
-public class PixelCollector
+public class Intake
 {
     enum WristPosition
     {
@@ -20,7 +20,7 @@ public class PixelCollector
     }
 
     /** Servo for controlling the wrist. */
-    private Servo wrist;
+    private final Servo wrist;
 
     /** High position value for wrist servo. */
     private double wristLow = 0.44;
@@ -35,10 +35,9 @@ public class PixelCollector
     private WristPosition wristPosition = WristPosition.MID_GOING_UP;
 
     /** Servo for claw mechanism. */
-    private Servo claw;
+    private final Servo claw;
 
     /** Open position value for claw servo. */
-
     private double clawOpenPosition = 0.7;
 
     /** Close position value for claw servo. */
@@ -57,7 +56,7 @@ public class PixelCollector
 
     private ServoToggle clawToggle;
     private ServoToggle wristToggle;
-    public PixelCollector(@NonNull HardwareMap map, String wristName, String clawName)
+    public Intake(@NonNull HardwareMap map, String wristName, String clawName)
     {
         wrist = map.get(Servo.class, wristName);
         claw = map.get(Servo.class, clawName);
@@ -116,6 +115,7 @@ public class PixelCollector
         wrist.setPosition(wristLow);
     }
 
+    // uhh delete this later
     public void xd() { wrist.setPosition(0.42); }
 
     /** Sets wrist to its high position. */

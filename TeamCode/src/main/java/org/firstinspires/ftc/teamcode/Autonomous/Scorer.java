@@ -2,31 +2,31 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Centerstage.PixelCollector;
+import org.firstinspires.ftc.teamcode.Centerstage.Intake;
 import org.firstinspires.ftc.teamcode.Core.LinearSlides;
 
 public class Scorer
 {
     public LinearSlides slides;
-    public PixelCollector pixelCollector;
+    public Intake intake;
 
 
     public Scorer(HardwareMap map)
     {
         this.slides = new LinearSlides(map, "Slides", 1540);
-        this.pixelCollector = new PixelCollector(map, "wrist", "claw");
-        this.pixelCollector.setWristMid();
-        this.pixelCollector.openClaw();
+        this.intake = new Intake(map, "wrist", "claw");
+        this.intake.setWristMid();
+        this.intake.openClaw();
     }
 
     public void score(Driver driver)
     {
         slides.extend();
-        pixelCollector.setWristHigh();
+        intake.setWristHigh();
         wait(1500);
-        pixelCollector.openClaw();
+        intake.openClaw();
         wait(1500);
-        pixelCollector.setWristLow();
+        intake.setWristLow();
         wait(1500);
         slides.reset();
 
@@ -34,11 +34,11 @@ public class Scorer
     }
 
     public void load() {
-        pixelCollector.setWristLow();
+        intake.setWristLow();
         wait(1000);
-        pixelCollector.closeClaw();
+        intake.closeClaw();
         wait(1000);
-        pixelCollector.xd();
+        intake.xd();
     }
 
     public void wait(int milliseconds)

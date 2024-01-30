@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Centerstage.PixelCollector;
+import org.firstinspires.ftc.teamcode.Centerstage.Intake;
 import org.firstinspires.ftc.teamcode.Core.DriveTrain;
 import org.firstinspires.ftc.teamcode.Core.HookMechanism;
 import org.firstinspires.ftc.teamcode.Core.Launcher;
@@ -14,12 +14,6 @@ public class CenterStage2023 extends LinearOpMode {
 
     public DriveTrain driveTrain;
 
-    private LinearSlides linearSlides;
-
-    private PixelCollector pixelCollector;
-    private HookMechanism hookMechanism;
-    private Launcher launcher;
-
     @Override
     public void runOpMode()
     {
@@ -27,13 +21,13 @@ public class CenterStage2023 extends LinearOpMode {
         driveTrain = new DriveTrain(hardwareMap, "fL", "bL", "fR", "bR");
         //Linear Slides
         int linearSlidesPosition = 1540;
-        linearSlides = new LinearSlides(hardwareMap, "Slides", linearSlidesPosition);
-        //PixelCollector
-        pixelCollector = new PixelCollector(hardwareMap, "wrist", "claw");
+        LinearSlides linearSlides = new LinearSlides(hardwareMap, "Slides", linearSlidesPosition);
 
-        hookMechanism = new HookMechanism(hardwareMap, "hanging", "hook");
+        Intake intake = new Intake(hardwareMap, "wrist", "claw");
 
-        launcher = new Launcher(hardwareMap, "launcher");
+        HookMechanism hookMechanism = new HookMechanism(hardwareMap, "hanging", "hook");
+
+        Launcher launcher = new Launcher(hardwareMap, "launcher");
 
 
 
@@ -54,8 +48,7 @@ public class CenterStage2023 extends LinearOpMode {
             telemetry.addData("FL Pos", String.valueOf(driveTrain.MotorFL.getCurrentPosition()));
             telemetry.addData("BR Pos", String.valueOf(driveTrain.MotorBR.getCurrentPosition()));
             telemetry.addData("BL Pos", String.valueOf(driveTrain.MotorBL.getCurrentPosition()));
-//            telemetry.addData("Linear Actuator Pos", String.valueOf(hookMechanism.getLinearActuatorPosition()));
-//            telemetry.addData("Hook Pos", String.valueOf(hookMechanism.getHookPosition()));
+
             telemetry.update();
 
 
@@ -65,7 +58,7 @@ public class CenterStage2023 extends LinearOpMode {
 
 
             //Controller 2
-            pixelCollector.updateServos(gamepad2.x, gamepad2.a);
+            intake.updateServos(gamepad2.x, gamepad2.a);
             linearSlides.update(gamepad2.y);
             launcher.update(gamepad2.b);
 
