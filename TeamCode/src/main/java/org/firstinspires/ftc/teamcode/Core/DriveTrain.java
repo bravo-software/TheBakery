@@ -21,6 +21,13 @@ public class DriveTrain
      */
     private final int MOTOR_FL_MODIFIER = 1, MOTOR_BL_MODIFIER = -1, MOTOR_FR_MODIFIER = 1, MOTOR_BR_MODIFIER = 1;
 
+    private boolean encoders_initialized = false;
+    private double ticks_per_rotation = 537.7;
+    private double wheel_diameter = 96; // mm
+
+    private double distance_per_rotation = wheel_diameter * Math.PI;
+
+
     /**
      * Constructor for DriveTrain.
      * Initializes the motors used in the drive train.
@@ -60,12 +67,12 @@ public class DriveTrain
     {
         setDirection(DcMotor.Direction.FORWARD);
         setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        MotorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        MotorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        MotorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        MotorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Stop();
-//        initEncoders();
-//        MotorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        MotorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        MotorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        MotorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 
     /**
@@ -154,11 +161,39 @@ public class DriveTrain
 
     /**
      * Initializes the encoders for the motors.
+     * WARNING: ONLY USE THIS IN AUTONOMOUS MODE.
      */
     private void initEncoders()
     {
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    //! untested
+    private void foward_ticks(int ticks)
+    {
+        if(!encoders_initialized)
+        {
+            initEncoders();
+            encoders_initialized = true;
+        }
+        setTargetPosition(ticks);
+        setPower(0.5);
+    }
+
+    //! untested
+
+    public void foward_distance(int distance)
+    {
+        if(!encoders_initialized)
+        {
+            initEncoders();
+            encoders_initialized = true;
+        }
+        double rotations = (distance / distance_per_rotation);
+        int ticks = (int) (rotations * ticks_per_rotation);
+        setTargetPosition(ticks);
+        setPower(0.5);
     }
 
     /**

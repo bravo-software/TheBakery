@@ -19,6 +19,7 @@ public class Test2024AUTO extends LinearOpMode
         test.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         test.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         test.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        test.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         while(opModeIsActive()) {
             test.setTargetPosition((int)(tick_per_rotation * 2));
