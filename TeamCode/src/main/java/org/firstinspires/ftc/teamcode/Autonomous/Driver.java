@@ -24,6 +24,7 @@ public class Driver extends DriveTrain
     public Driver(HardwareMap map)
     {
         super(map, "leftFront", "rightFront", "leftBack", "rightBack");
+        super.initEncoders();
     }
 
     //! untested

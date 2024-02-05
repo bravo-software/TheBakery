@@ -39,6 +39,14 @@ public class DriveTrain
         MotorBL = map.get(DcMotor.class, BL);
         MotorFR = map.get(DcMotor.class, FR);
         MotorBR = map.get(DcMotor.class, BR);
+
+        setDirection(DcMotor.Direction.FORWARD);
+        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        MotorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        MotorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        MotorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        MotorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Stop();
     }
 
     /**
@@ -52,22 +60,6 @@ public class DriveTrain
         Turn(gamepad, gamepad.right_stick_x);
         Forward(gamepad, gamepad.left_stick_y);
         Strafe(gamepad, gamepad.left_stick_x);
-    }
-
-    /**
-     * Initializes the robot's drive system.
-     * Sets the motor direction and stops all motors.
-     */
-    public void init()
-    {
-        setDirection(DcMotor.Direction.FORWARD);
-        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        MotorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        MotorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        MotorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        MotorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Stop();
-
     }
 
     /**
