@@ -5,101 +5,93 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Core.DriveTrain;
 
-public class Driver
+public class Driver extends DriveTrain
 {
-    DriveTrain driveTrain;
-    int timeFor90Degrees = 290;
-    double inchesPerSecond = 26.5;
+    /**
+     * The length of a tile in inches
+     */
     int tileLength = 24;
+    /**
+     * The number of ticks per rotation of the motor
+     */
+    private final double encoderResolution = 537.7;
 
+    /** Diameter of the wheels in millimeters */
+    private final double wheel_diameter = 96; // mm
+
+    /** linear distance covered by one rotation of the wheel*/
+    private final double distance_per_rotation = wheel_diameter * Math.PI;
     public Driver(HardwareMap map)
     {
-        driveTrain = new DriveTrain(map, "fL", "bL", "fR", "bR");
+        super(map, "leftFront", "rightFront", "leftBack", "rightBack");
     }
-    public void init()
+
+    //! untested
+    private void foward_ticks(int ticks)
     {
-        driveTrain.init();
+        if(!super.encoders_initialized)
+        {
+            super.initEncoders();
+            encoders_initialized = true;
+        }
+        super.setTargetPosition(ticks);
+        super.setPower(0.5);
     }
 
-    private int turnTimeValue180Mill = 2000;
+    //! untested
 
-    public void forwardSetDistance(double inches)
+    public void foward_distance(int distance)
     {
-        int time = (int) ((inches / inchesPerSecond) * 1000);
-        forward(time);
+        if(!super.encoders_initialized)
+        {
+            super.initEncoders();
+            super.encoders_initialized = true;
+        }
+        double rotations = (distance / distance_per_rotation);
+        int ticks = (int) (rotations * encoderResolution);
+        super.setTargetPosition(ticks);
+        super.setPower(0.5);
     }
 
-    public void backwardsSetDistance(double inches)
+    public void foward_tiles(double tiles)
     {
-        int time = (int) ((inches / inchesPerSecond) * 1000);
-        backwards(time);
+        if(!super.encoders_initialized)
+        {
+            super.initEncoders();
+            super.encoders_initialized = true;
+        }
+        double distance = tiles * tileLength * 0.0393701;
+        double rotations = (distance / distance_per_rotation);
+        int ticks = (int) (rotations * encoderResolution);
+        super.setTargetPosition(ticks);
+        super.setPower(0.5);
     }
 
-    public void turn_park_90_intervalsClockwise(int angle)
+    private void turn_ticks(int ticks)
     {
-        int intervals = (int) (angle / 90);
-        for(int i = 0; i<intervals; i++)
+        if(!super.encoders_initialized)
         {
-            driveTrain.DirectTurn(1);
-            try {Thread.sleep(timeFor90Degrees);} catch (InterruptedException ignored) {}
-            driveTrain.Stop();
-            try {Thread.sleep(250);} catch (InterruptedException ignored) {}
+            super.initEncoders();
+            super.encoders_initialized = true;
         }
+        super.MotorBL.setTargetPosition(ticks);
+        super.MotorFL.setTargetPosition(ticks);
+        super.MotorBR.setTargetPosition(-ticks);
+        super.MotorFR.setTargetPosition(-ticks);
+        super.setPower(0.5);
     }
 
-    public void turn_park_90_intervalsCounterClockwise(int angle)
+    public void turn(double degrees)
     {
-        int intervals = (int) (angle / 90);
-        for(int i = 0; i<intervals; i++)
+        if(!super.encoders_initialized)
         {
-            driveTrain.DirectTurn(-1);
-            try {Thread.sleep(timeFor90Degrees);} catch (InterruptedException ignored) {}
-            driveTrain.Stop();
-            try {Thread.sleep(250);} catch (InterruptedException ignored) {}
+            super.initEncoders();
+            super.encoders_initialized = true;
         }
+        double rotations = (degrees / 360);
+        int ticks = (int) (rotations * encoderResolution);
+        super.setTargetPosition(ticks);
+        super.setPower(0.5);
     }
 
-    //distance in mm
-    public void forward(int time) {
-        driveTrain.DirectFoward(-0.5);
-        try
-        {
-            Thread.sleep(time);
-        }
-        catch (InterruptedException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        driveTrain.Stop();
-    }
-
-    public void backwards(int time)
-    {
-        driveTrain.DirectFoward(0.5);
-        try
-        {
-            Thread.sleep(time);
-        }
-        catch (InterruptedException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        driveTrain.Stop();
-    }
-
-//    public void turn(double angle)
-//    {
-//        driveTrain.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        driveTrain.DirectTurn(0.5);
-//        int tickPosition = turntickValue180 * (int)(angle/180);
-//
-//        driveTrain.MotorBL.setTargetPosition(-tickPosition);
-//        driveTrain.MotorBR.setTargetPosition( tickPosition);
-//        driveTrain.MotorFL.setTargetPosition(-tickPosition);
-//        driveTrain.MotorFR.setTargetPosition( tickPosition);
-//
-//        while(driveTrain.isBusy()) {}
-//    }
 }

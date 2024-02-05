@@ -19,14 +19,9 @@ public class DriveTrain
      * <p>
      * These modifiers ensure that all wheels move in the intended direction.
      */
-    private final int MOTOR_FL_MODIFIER = 1, MOTOR_BL_MODIFIER = -1, MOTOR_FR_MODIFIER = 1, MOTOR_BR_MODIFIER = 1;
+    protected final int MOTOR_FL_MODIFIER = 1, MOTOR_BL_MODIFIER = -1, MOTOR_FR_MODIFIER = 1, MOTOR_BR_MODIFIER = 1;
 
-    private boolean encoders_initialized = false;
-    private double ticks_per_rotation = 537.7;
-    private double wheel_diameter = 96; // mm
-
-    private double distance_per_rotation = wheel_diameter * Math.PI;
-
+    protected boolean encoders_initialized = false;
 
     /**
      * Constructor for DriveTrain.
@@ -89,7 +84,7 @@ public class DriveTrain
      * @param gamepad The gamepad controlling movement for the robot.
      * @param speed   The speed at which to strafe.
      */
-    private void Strafe(Gamepad gamepad, float speed)
+    protected void Strafe(Gamepad gamepad, float speed)
     {
         double speedMod = calculateSpeedModifier(gamepad, 0.2, 0.6, 1);
         DirectStrafe(speed * speedMod);
@@ -101,7 +96,7 @@ public class DriveTrain
      * @param gamepad The gamepad controlling movement for the robot.
      * @param speed   The speed at which to move forward/backward.
      */
-    private void Forward(Gamepad gamepad, float speed)
+    protected void Forward(Gamepad gamepad, float speed)
     {
         double speedMod = calculateSpeedModifier(gamepad, 0.2, 0.6, 1);
         DirectFoward(speed * speedMod);
@@ -128,7 +123,7 @@ public class DriveTrain
      * @param fast    Fast speed modifier.
      * @return The calculated speed modifier.
      */
-    private double calculateSpeedModifier(@NonNull Gamepad gamepad, double slow, double normal, double fast)
+    protected double calculateSpeedModifier(@NonNull Gamepad gamepad, double slow, double normal, double fast)
     {
         double speedModifier = normal;
         if (gamepad.a)
@@ -151,7 +146,7 @@ public class DriveTrain
      *
      * @param direction The direction to set the motors.
      */
-    private void setDirection(DcMotor.Direction direction)
+    protected void setDirection(DcMotor.Direction direction)
     {
         MotorFL.setDirection(direction);
         MotorBL.setDirection(direction);
@@ -163,37 +158,10 @@ public class DriveTrain
      * Initializes the encoders for the motors.
      * WARNING: ONLY USE THIS IN AUTONOMOUS MODE.
      */
-    private void initEncoders()
+    protected void initEncoders()
     {
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
-
-    //! untested
-    private void foward_ticks(int ticks)
-    {
-        if(!encoders_initialized)
-        {
-            initEncoders();
-            encoders_initialized = true;
-        }
-        setTargetPosition(ticks);
-        setPower(0.5);
-    }
-
-    //! untested
-
-    public void foward_distance(int distance)
-    {
-        if(!encoders_initialized)
-        {
-            initEncoders();
-            encoders_initialized = true;
-        }
-        double rotations = (distance / distance_per_rotation);
-        int ticks = (int) (rotations * ticks_per_rotation);
-        setTargetPosition(ticks);
-        setPower(0.5);
     }
 
     /**
@@ -226,7 +194,7 @@ public class DriveTrain
      *
      * @param speed The speed at which to strafe.
      */
-    private void DirectStrafe(double speed)
+    protected void DirectStrafe(double speed)
     {
         System.out.println("Strafing");
         setPowerFL(-speed);
@@ -253,7 +221,7 @@ public class DriveTrain
      *
      * @param power The power level for the Front Left motor.
      */
-    private void setPowerFL(double power)
+    protected void setPowerFL(double power)
     {
         MotorFL.setPower(power * MOTOR_FL_MODIFIER);
     }
@@ -263,7 +231,7 @@ public class DriveTrain
      *
      * @param power The power level for the Back Left motor.
      */
-    private void setPowerBL(double power)
+    protected void setPowerBL(double power)
     {
         MotorBL.setPower(power * MOTOR_BL_MODIFIER);
     }
@@ -273,7 +241,7 @@ public class DriveTrain
      *
      * @param power The power level for the Front Right motor.
      */
-    private void setPowerFR(double power)
+    protected void setPowerFR(double power)
     {
         MotorFR.setPower(power * MOTOR_FR_MODIFIER);
     }
@@ -283,7 +251,7 @@ public class DriveTrain
      *
      * @param power The power level for the Back Right motor.
      */
-    private void setPowerBR(double power)
+    protected void setPowerBR(double power)
     {
         MotorBR.setPower(power * MOTOR_BR_MODIFIER);
     }
