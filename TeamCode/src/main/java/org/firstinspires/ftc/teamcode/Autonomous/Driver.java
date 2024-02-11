@@ -20,10 +20,12 @@ public class Driver extends DriveTrain
     private final double wheel_diameter = 96; // mm
 
     /** linear distance covered by one rotation of the wheel*/
-    private final double distance_per_rotation = wheel_diameter * Math.PI;
+    private final double distance_per_motor_rotation = wheel_diameter * Math.PI;
+
+    private final double wheel_rotations_per_90_turn = 0.5; //guess
     public Driver(HardwareMap map)
     {
-        super(map, "leftFront", "rightFront", "leftBack", "rightBack");
+        super(map, "fL", "bL", "fR", "bR");
         super.initEncoders();
     }
 
@@ -48,7 +50,7 @@ public class Driver extends DriveTrain
             super.initEncoders();
             super.encoders_initialized = true;
         }
-        double rotations = (distance / distance_per_rotation);
+        double rotations = (distance / distance_per_motor_rotation);
         int ticks = (int) (rotations * encoderResolution);
         super.setTargetPosition(ticks);
         super.setPower(0.5);
@@ -62,7 +64,7 @@ public class Driver extends DriveTrain
             super.encoders_initialized = true;
         }
         double distance = tiles * tileLength * 0.0393701;
-        double rotations = (distance / distance_per_rotation);
+        double rotations = (distance / distance_per_motor_rotation);
         int ticks = (int) (rotations * encoderResolution);
         super.setTargetPosition(ticks);
         super.setPower(0.5);

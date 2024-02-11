@@ -150,7 +150,7 @@ public class DriveTrain
      * Initializes the encoders for the motors.
      * WARNING: ONLY USE THIS IN AUTONOMOUS MODE.
      */
-    protected void initEncoders()
+    public void initEncoders()
     {
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
