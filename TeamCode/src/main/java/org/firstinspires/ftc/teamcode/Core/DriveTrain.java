@@ -153,7 +153,7 @@ public class DriveTrain
     public void initEncoders()
     {
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     /**

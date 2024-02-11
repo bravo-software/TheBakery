@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Core.DriveTrain;
@@ -29,8 +30,17 @@ public class Driver extends DriveTrain
         super.initEncoders();
     }
 
+    private void resetEncoders()
+    {
+        super.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+    private void selectRunToPositionMode()
+    {
+        super.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
     //! untested
-    private void foward_ticks(int ticks)
+    private void forwardTicks(int ticks)
     {
         if(!super.encoders_initialized)
         {
@@ -43,7 +53,7 @@ public class Driver extends DriveTrain
 
     //! untested
 
-    public void foward_distance(int distance)
+    public void forwardDistance(int distance)
     {
         if(!super.encoders_initialized)
         {
@@ -56,7 +66,7 @@ public class Driver extends DriveTrain
         super.setPower(0.5);
     }
 
-    public void foward_tiles(double tiles)
+    public void forwardTiles(double tiles)
     {
         if(!super.encoders_initialized)
         {
@@ -67,10 +77,11 @@ public class Driver extends DriveTrain
         double rotations = (distance / distance_per_motor_rotation);
         int ticks = (int) (rotations * encoderResolution);
         super.setTargetPosition(ticks);
+        super.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         super.setPower(0.5);
     }
 
-    private void turn_ticks(int ticks)
+    private void turnTicks(int ticks)
     {
         if(!super.encoders_initialized)
         {
