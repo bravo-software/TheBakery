@@ -30,22 +30,8 @@ public class Test2024AUTO extends LinearOpMode
                 telemetry.addData("MotorBL", driveTrain.MotorBL.getCurrentPosition());
                 telemetry.addData("MotorBR", driveTrain.MotorBR.getCurrentPosition());
                 telemetry.update();
-//
-//            driveTrain.MotorFR.setTargetPosition(1000);
-//            driveTrain.MotorFL.setTargetPosition(1000);
-//            driveTrain.MotorBL.setTargetPosition(1000);
-//            driveTrain.MotorBR.setTargetPosition(1000);
-//
-//            driveTrain.MotorFR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            driveTrain.MotorFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            driveTrain.MotorBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            driveTrain.MotorBR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//
-//            driveTrain.MotorFR.setPower(0.5);
-//            driveTrain.MotorFL.setPower(0.5);
-//            driveTrain.MotorBL.setPower(0.5);
-//            driveTrain.MotorBR.setPower(0.5);
-                driver.test();
+
+                driver.test(telemetry);
             }
         }
 }
