@@ -19,7 +19,7 @@ public class DriveTrain
      * <p>
      * These modifiers ensure that all wheels move in the intended direction.
      */
-    protected final int MOTOR_FL_MODIFIER = 1, MOTOR_BL_MODIFIER = -1, MOTOR_FR_MODIFIER = 1, MOTOR_BR_MODIFIER = 1;
+    protected final int MOTOR_FL_MODIFIER = 1, MOTOR_BL_MODIFIER = 1, MOTOR_FR_MODIFIER = 1, MOTOR_BR_MODIFIER = 1;
 
     protected boolean encoders_initialized = false;
 
@@ -42,10 +42,10 @@ public class DriveTrain
 
         setDirection(DcMotor.Direction.FORWARD);
         setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        MotorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        MotorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        MotorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        MotorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Stop();
     }
 
@@ -91,7 +91,7 @@ public class DriveTrain
     protected void Forward(Gamepad gamepad, float speed)
     {
         double speedMod = calculateSpeedModifier(gamepad, 0.2, 0.6, 1);
-        DirectFoward(speed * speedMod);
+        DirectForward(speed * speedMod);
     }
 
     /**
@@ -152,7 +152,12 @@ public class DriveTrain
      */
     public void initEncoders()
     {
+//        MotorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 //        setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
@@ -161,7 +166,7 @@ public class DriveTrain
      *
      * @param speed The speed at which to move forward.
      */
-    public void DirectFoward(double speed)
+    public void DirectForward(double speed)
     {
         System.out.println("Driving");
         setPower(speed);

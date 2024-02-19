@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -27,85 +26,59 @@ public class Driver extends DriveTrain
     public Driver(HardwareMap map)
     {
         super(map, "fL", "bL", "fR", "bR");
-        super.initEncoders();
+        super.MotorFR.setDirection(DcMotor.Direction.REVERSE);
+        super.MotorBR.setDirection(DcMotor.Direction.REVERSE);
+        super.MotorBL.setDirection(DcMotor.Direction.REVERSE);
+        super.MotorFL.setDirection(DcMotor.Direction.REVERSE);
     }
 
     private void resetEncoders()
     {
         super.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
-    private void selectRunToPositionMode()
-    {
-        super.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
 
-    //! untested
-    private void forwardTicks(int ticks)
+    private void forward_ticks(int ticks, double power)
     {
-        if(!super.encoders_initialized)
-        {
-            super.initEncoders();
-            encoders_initialized = true;
-        }
-        super.setTargetPosition(ticks);
-        super.setPower(0.5);
-    }
-
-    //! untested
-
-    public void forwardDistance(int distance)
-    {
-        if(!super.encoders_initialized)
-        {
-            super.initEncoders();
-            super.encoders_initialized = true;
-        }
-        double rotations = (distance / distance_per_motor_rotation);
-        int ticks = (int) (rotations * encoderResolution);
-        super.setTargetPosition(ticks);
-        super.setPower(0.5);
-    }
-
-    public void forwardTiles(double tiles)
-    {
-        if(!super.encoders_initialized)
-        {
-            super.initEncoders();
-            super.encoders_initialized = true;
-        }
-        double distance = tiles * tileLength * 0.0393701;
-        double rotations = (distance / distance_per_motor_rotation);
-        int ticks = (int) (rotations * encoderResolution);
+        resetEncoders();
         super.setTargetPosition(ticks);
         super.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        super.setPower(0.5);
+
+        super.MotorFR.setDirection(DcMotor.Direction.REVERSE);
+        super.MotorBR.setDirection(DcMotor.Direction.REVERSE);
+        super.MotorFL.setDirection(DcMotor.Direction.REVERSE);
+        super.MotorBL.setDirection(DcMotor.Direction.REVERSE);
+
+        super.setPower(power);
     }
 
-    private void turnTicks(int ticks)
+    public void forward_distance(double distance, double power)
     {
-        if(!super.encoders_initialized)
-        {
-            super.initEncoders();
-            super.encoders_initialized = true;
-        }
-        super.MotorBL.setTargetPosition(ticks);
-        super.MotorFL.setTargetPosition(ticks);
-        super.MotorBR.setTargetPosition(-ticks);
-        super.MotorFR.setTargetPosition(-ticks);
-        super.setPower(0.5);
+        int ticks = (int) (distance * encoderResolution / distance_per_motor_rotation);
+        forward_ticks(ticks, power);
     }
 
-    public void turn(double degrees)
+    public void turn_ticks(int ticks, double power)
     {
-        if(!super.encoders_initialized)
-        {
-            super.initEncoders();
-            super.encoders_initialized = true;
-        }
-        double rotations = (degrees / 360);
-        int ticks = (int) (rotations * encoderResolution);
         super.setTargetPosition(ticks);
-        super.setPower(0.5);
+        super.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        super.MotorFR.setDirection(DcMotor.Direction.FORWARD);
+        super.MotorBR.setDirection(DcMotor.Direction.FORWARD);
+
+        super.MotorFL.setDirection(DcMotor.Direction.REVERSE);
+        super.MotorBL.setDirection(DcMotor.Direction.REVERSE);
+
+        super.setPower(power);
+    }
+
+    public void test()
+    {
+//        super.setTargetPosition(1000);
+//        super.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        super.DirectForward(0.5);
+//        forward_distance(609.6, 0.5);
+        turn_ticks(923, 0.5);
+
     }
 
 }
