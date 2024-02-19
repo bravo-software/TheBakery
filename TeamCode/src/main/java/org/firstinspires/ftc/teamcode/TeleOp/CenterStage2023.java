@@ -26,7 +26,7 @@ public class CenterStage2023 extends LinearOpMode {
 
 //        HookMechanism hookMechanism = new HookMechanism(hardwareMap, "hanging", "hook");
 
-//        Launcher launcher = new Launcher(hardwareMap, "launcher");
+        Launcher launcher = new Launcher(hardwareMap, "launcher");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -55,7 +55,7 @@ public class CenterStage2023 extends LinearOpMode {
             //Controller 2
             intake.updateServos(gamepad2.x, gamepad2.a);
             linearSlides.update(gamepad2.y);
-//            launcher.update(gamepad2.b);
+            launcher.update(gamepad2.b);
 
         }
     }
