@@ -35,13 +35,20 @@ public class Intake
     private WristPosition wristPosition = WristPosition.MID_GOING_UP;
 
     /** Servo for claw mechanism. */
-    private final Servo claw;
+    private final Servo claw1;
+
+    private final Servo claw2;
 
     /** Open position value for claw servo. */
-    private double clawOpenPosition = 0.7;
+    private double clawOpenPosition1 = 0.7;
 
     /** Close position value for claw servo. */
-    private double clawClosePosition = 1;
+    private double clawClosePosition1 = 1;
+
+    private double clawOpenPosition2 = 0.7;
+
+    /** Close position value for claw servo. */
+    private double clawClosePosition2 = 1;
 
     /** Current state of claw (ACTIVE = open, INACTIVE = closed). */
     private State clawState = State.INACTIVE;
@@ -54,14 +61,20 @@ public class Intake
      * @param clawName      Name of trapdoor Servo.
      */
 
-    private ServoToggle clawToggle;
+    private ServoToggle clawToggle1;
+
+    private ServoToggle clawToggle2;
+
     private ServoToggle wristToggle;
-    public Intake(@NonNull HardwareMap map, String wristName, String clawName)
+    public Intake(@NonNull HardwareMap map, String wristName, String clawName1, String clawName2)
     {
         wrist = map.get(Servo.class, wristName);
-        claw = map.get(Servo.class, clawName);
+        claw1 = map.get(Servo.class, clawName1);
+        claw2 = map.get(Servo.class, clawName2);
 
-        clawToggle = new ServoToggle(this::toggleClawPosition);
+        clawToggle1 = new ServoToggle(this::toggleClawPosition);
+        clawToggle2 = new ServoToggle(this::toggleClawPosition);
+
         wristToggle = new ServoToggle(this::toggleWristPosition);
     }
 
@@ -88,24 +101,40 @@ public class Intake
 
     /** Toggles claw between open and closed positions. */
     public void toggleClawPosition() {
-        if (clawState == State.ACTIVE)
-            closeClaw();
-        else
-            openClaw();
+        if (clawState == State.ACTIVE) {
+            closeClaw1();
+            closeClaw2();
+        } else {
+            openClaw1();
+            openClaw2();
+        }
     }
 
     /** Sets claw to open position. */
-    public void openClaw()
+    public void openClaw1()
     {
         clawState = State.ACTIVE;
-        claw.setPosition(clawOpenPosition);
+        claw1.setPosition(clawOpenPosition1);
     }
 
     /** Sets claw to closed position. */
-    public void closeClaw()
+    public void closeClaw1()
     {
         clawState = State.INACTIVE;
-        claw.setPosition(clawClosePosition);
+        claw1.setPosition(clawClosePosition1);
+    }
+
+    public void openClaw2()
+    {
+        clawState = State.ACTIVE;
+        claw2.setPosition(clawOpenPosition2);
+    }
+
+    /** Sets claw to closed position. */
+    public void closeClaw2()
+    {
+        clawState = State.INACTIVE;
+        claw2.setPosition(clawClosePosition2);
     }
 
 

@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Core.DriveTrain;
+import org.firstinspires.ftc.teamcode.Centerstage.Intake;
 import org.firstinspires.ftc.teamcode.Core.LinearSlides;
 
 @TeleOp(name="CenterStage2023", group="TeleOp")
@@ -21,7 +22,7 @@ public class CenterStage2023 extends LinearOpMode {
 
         LinearSlides linearSlides = new LinearSlides(hardwareMap, "Slides", linearSlidesPosition);
 
-//        Intake intake = new Intake(hardwareMap, "wrist", "claw");
+        Intake intake = new Intake(hardwareMap, "wrist", "claw1", "claw2");
 
 //        HookMechanism hookMechanism = new HookMechanism(hardwareMap, "hanging", "hook");
 
@@ -52,7 +53,7 @@ public class CenterStage2023 extends LinearOpMode {
 
 
             //Controller 2
-//            intake.updateServos(gamepad2.x, gamepad2.a);
+            intake.updateServos(gamepad2.x, gamepad2.a);
             linearSlides.update(gamepad2.y);
 //            launcher.update(gamepad2.b);
 
