@@ -3,8 +3,9 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Core.DriveTrain;
 import org.firstinspires.ftc.teamcode.Centerstage.Intake;
+import org.firstinspires.ftc.teamcode.Core.DriveTrain;
+import org.firstinspires.ftc.teamcode.Core.Launcher;
 import org.firstinspires.ftc.teamcode.Core.LinearSlides;
 
 @TeleOp(name="CenterStage2023", group="TeleOp")
@@ -31,9 +32,6 @@ public class CenterStage2023 extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         waitForStart();
-
-        linearSlides.extend();
-        linearSlides.reset();
 
         while (opModeIsActive())
         {

@@ -15,23 +15,33 @@ public class Test2024AUTO extends LinearOpMode
             DriveTrain driveTrain = new DriveTrain(hardwareMap, "fL", "bL", "fR", "bR");
             Driver driver = new Driver(hardwareMap);
 
+
+            //can we delete this?
             driveTrain.MotorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             driveTrain.MotorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             driveTrain.MotorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             driveTrain.MotorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            boolean ran = false;
 
             waitForStart();
             while(opModeIsActive())
             {
                 telemetry.clear();
                 telemetry.addData("Status", "Running");
-                telemetry.addData("MotorFL", driveTrain.MotorFL.getCurrentPosition());
-                telemetry.addData("MotorFR", driveTrain.MotorFR.getCurrentPosition());
-                telemetry.addData("MotorBL", driveTrain.MotorBL.getCurrentPosition());
-                telemetry.addData("MotorBR", driveTrain.MotorBR.getCurrentPosition());
+                telemetry.addData("MotorFL", driver.getMotorFLPosition());
+                telemetry.addData("MotorFR", driver.getMotorFRPosition());
+                telemetry.addData("MotorBL", driver.getMotorBLPosition());
+                telemetry.addData("MotorBR", driver.getMotorBRPosition());
                 telemetry.update();
 
-                driver.test(telemetry);
+                //any movement code goes here
+                if (!ran)
+                {
+                    driver.forward_tiles(-2);
+                    driver.turn_90_counter_clockwise(1);
+                    driver.forward_tiles(1);
+                    ran = true;
+                }
             }
         }
 }

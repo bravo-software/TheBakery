@@ -26,8 +26,6 @@ public class Driver extends DriveTrain
     /** linear distance covered by one rotation of the wheel*/
     private final double distance_per_motor_rotation = wheel_diameter * Math.PI;
 
-    private final double wheel_rotations_per_90_turn = 0.5; //guess
-
     public Driver(HardwareMap map)
     {
         super(map, "fL", "bL", "fR", "bR");
@@ -100,6 +98,11 @@ public class Driver extends DriveTrain
         forward_distance(tiles * tileLength * 25.4, power);
     }
 
+    public void forward_tiles(int tiles)
+    {
+        forward_tiles(tiles, 0.5);
+    }
+
     public void turn_ticks(int ticks, double power)
     {
 
@@ -144,6 +147,23 @@ public class Driver extends DriveTrain
        turn_90_counter_clockwise(1);
        forward_tiles(1, 0.5);
 
+    }
+
+    public int getMotorFLPosition()
+    {
+        return super.MotorFL.getCurrentPosition();
+    }
+    public int getMotorFRPosition()
+    {
+        return super.MotorFR.getCurrentPosition();
+    }
+    public int getMotorBLPosition()
+    {
+        return super.MotorBL.getCurrentPosition();
+    }
+    public int getMotorBRPosition()
+    {
+        return super.MotorBR.getCurrentPosition();
     }
 
 }
