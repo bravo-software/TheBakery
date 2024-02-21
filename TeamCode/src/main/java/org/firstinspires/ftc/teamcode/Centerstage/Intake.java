@@ -40,15 +40,10 @@ public class Intake
     private final Servo claw2;
 
     /** Open position value for claw servo. */
-    private final double clawOpenPosition1 = 0.7;
+    private final double clawClosePosition= 0.6;
 
     /** Close position value for claw servo. */
-    private final double clawClosePosition1 = 1;
-
-    private final double clawOpenPosition2 = 0.7;
-
-    /** Close position value for claw servo. */
-    private final double clawClosePosition2 = 1;
+    private final double clawOpenPosition = 0.8;
 
     /** Current state of claw (ACTIVE = open, INACTIVE = closed). */
     private State clawState = State.INACTIVE;
@@ -69,6 +64,8 @@ public class Intake
         wrist = map.get(Servo.class, wristName);
         claw1 = map.get(Servo.class, clawName1);
         claw2 = map.get(Servo.class, clawName2);
+        claw1.setDirection(Servo.Direction.FORWARD);
+        claw2.setDirection(Servo.Direction.REVERSE);
 
         clawToggle = new ServoToggle(this::toggleClawPosition);
 
@@ -109,16 +106,16 @@ public class Intake
     public void openClaw()
     {
         clawState = State.ACTIVE;
-        claw1.setPosition(clawOpenPosition1);
-        claw2.setPosition(clawOpenPosition2);
+        claw1.setPosition(clawOpenPosition);
+        claw2.setPosition(clawOpenPosition);
     }
 
     /** Sets claw to closed position. */
     public void closeClaw()
     {
         clawState = State.INACTIVE;
-        claw1.setPosition(clawClosePosition1);
-        claw2.setPosition(clawClosePosition2);
+        claw1.setPosition(clawClosePosition);
+        claw2.setPosition(clawClosePosition);
     }
 
     /** Sets wrist to its low position. */
@@ -143,7 +140,7 @@ public class Intake
 
     public void updateServos(boolean clawButton, boolean wristButton)
     {
-        wristToggle.update(wristButton);
         clawToggle.update(clawButton);
+        wristToggle.update(wristButton);
     }
 }
