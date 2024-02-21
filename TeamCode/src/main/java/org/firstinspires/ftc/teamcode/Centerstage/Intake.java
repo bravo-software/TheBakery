@@ -43,7 +43,7 @@ public class Intake
     private final double clawClosePosition= 0.6;
 
     /** Close position value for claw servo. */
-    private final double clawOpenPosition = 0.8;
+    private final double clawOpenPosition = 0.75;
 
     /** Current state of claw (ACTIVE = open, INACTIVE = closed). */
     private State clawState = State.INACTIVE;
