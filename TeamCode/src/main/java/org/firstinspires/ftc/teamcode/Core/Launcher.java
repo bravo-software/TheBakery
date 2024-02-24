@@ -27,13 +27,13 @@ public class Launcher
     public void openLauncher()
     {
         launcherPosition = State.INACTIVE;
-        double launcherHigh = 0.5;
+        double launcherHigh = 0.8;
         launcher.setPosition(launcherHigh);
     }
     public void closeLauncher()
     {
         launcherPosition = State.ACTIVE;
-        double launcherLow = 1;
+        double launcherLow = 0.15;  //maybe 0.10
         launcher.setPosition(launcherLow);
     }
     public void update(boolean buttonState)
@@ -41,3 +41,4 @@ public class Launcher
         launcherToggle.update(buttonState);
     }
 }
+// for launcher the higher the number, the more right it goes
