@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Core.DriveTrain;
 
 public class Driver extends DriveTrain
@@ -93,14 +92,14 @@ public class Driver extends DriveTrain
 
     }
 
-    public void forward_tiles(int tiles, double power)
+    public void forward_tiles(double tiles, double power)
     {
         forward_distance(tiles * tileLength * 25.4, power);
     }
 
-    public void forward_tiles(int tiles)
+    public void forward_tiles(double tiles)
     {
-        forward_tiles(tiles, 0.5);
+        forward_tiles(tiles, 0.3);
     }
 
     public void turn_ticks(int ticks, double power)
@@ -138,15 +137,6 @@ public class Driver extends DriveTrain
     public void turn_90_counter_clockwise(int times)
     {
         turn_90_intervals(-times);
-    }
-
-    public void test(Telemetry telemetry)
-    {
-
-       forward_tiles(-2, 0.5);
-       turn_90_counter_clockwise(1);
-       forward_tiles(1, 0.5);
-
     }
 
     public int getMotorFLPosition()
