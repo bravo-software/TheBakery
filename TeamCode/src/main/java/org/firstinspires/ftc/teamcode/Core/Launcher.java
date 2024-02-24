@@ -33,7 +33,7 @@ public class Launcher
     public void closeLauncher()
     {
         launcherPosition = State.ACTIVE;
-        double launcherLow = 0.15;  //maybe 0.10
+        double launcherLow = 0.2;  //maybe 0.25
         launcher.setPosition(launcherLow);
     }
     public void update(boolean buttonState)
