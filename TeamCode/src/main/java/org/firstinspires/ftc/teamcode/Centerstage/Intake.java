@@ -14,8 +14,8 @@ public class Intake
     enum WristPosition
     {
         LOW,
-//        MID_GOING_UP,
-//        MID_GOING_DOWN,
+////        MID_GOING_UP,
+////        MID_GOING_DOWN,
         HIGH
     }
 
@@ -23,16 +23,16 @@ public class Intake
     private final Servo wrist;
 
     /** High position value for wrist servo. */
-    private final double wristLow = 0.12; //old 44
+    private final double wristLow = 0.40;
 
     /** Low position value for wrist servo. */
-    private final double wristMid = 0.34;
+    //private final double wristMid = 0.34;
 
     /** High position value for wrist servo. */
-    private final double wristHigh = 0;
+    private final double wristHigh = 0.10;
 
     /** Current wrist position (ACTIVE = high, INACTIVE = low). */
-    private WristPosition wristPosition = WristPosition.LOW;
+    private WristPosition wristPosition = WristPosition.HIGH;
 
     /** Servo for claw mechanism. */
     private final Servo claw1;
@@ -79,18 +79,14 @@ public class Intake
             setWristHigh();
             wristPosition = WristPosition.HIGH;
         }
-        else {
-            setWristLow();
-            wristPosition = WristPosition.LOW;
-        }
 //        else if(wristPosition == WristPosition.MID_GOING_UP) {
 //            setWristHigh();
 //            wristPosition = WristPosition.HIGH;
 //        }
-//        else if(wristPosition == WristPosition.HIGH) {
-//            setWristMid();
-//            wristPosition = WristPosition.MID_GOING_DOWN;
-//        }
+        else if(wristPosition == WristPosition.HIGH) {
+            setWristLow();
+            wristPosition = WristPosition.LOW;
+        }
 //        else if(wristPosition == WristPosition.MID_GOING_DOWN) {
 //            setWristLow();
 //            wristPosition = WristPosition.LOW;
@@ -136,7 +132,7 @@ public class Intake
     {
         wrist.setPosition(wristHigh);
     }
-//
+
 //    public void setWristMid()
 //    {
 //        wrist.setPosition(wristMid);
