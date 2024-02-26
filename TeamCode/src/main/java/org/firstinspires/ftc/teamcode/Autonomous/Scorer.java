@@ -13,40 +13,40 @@ public class Scorer
 
     public Scorer(HardwareMap map)
     {
-//        this.slides = new LinearSlides(map, "Slides", 1540);
-//        this.intake = new Intake(map, "wrist", "claw");
-//        this.intake.setWristMid();
-//        this.intake.openClaw();
+        this.slides = new LinearSlides(map, "Slides", 1540);
+        this.intake = new Intake(map, "wrist", "claw1", "claw2");
+        this.intake.openClaw();
     }
 
     public void score(Driver driver)
     {
-//        slides.extend();
-//        intake.setWristHigh();
-//        wait(1500);
-//        intake.openClaw();
-//        wait(1500);
-//        intake.setWristLow();
-//        wait(1500);
-//        slides.reset();
-//
-//        driver.backwardsSetDistance(0.5);
+        intake.closeClaw();
+        wait(1500);
+        slides.extend();
+        wait(1500);
+        intake.setWristHigh();
+        wait(1500);
+        intake.openClaw();
+        wait(1500);
+        slides.reset();
+        wait(1500);
+        intake.setWristLow();
+        wait(1500);
     }
 
     public void load() {
-//        intake.setWristLow();
-//        wait(1000);
-//        intake.closeClaw();
-//        wait(1000);
-//        intake.xd();
+        intake.setWristLow();
+        wait(1000);
+        intake.openClaw();
+        wait(1000);
     }
 
     public void wait(int milliseconds)
     {
-//        try
-//        {
-//            Thread.sleep(milliseconds);
-//        } catch (InterruptedException ignored) {}
+        try
+        {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException ignored) {}
     }
 
 }

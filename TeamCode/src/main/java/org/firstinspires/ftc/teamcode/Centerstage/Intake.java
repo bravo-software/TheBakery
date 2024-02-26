@@ -23,13 +23,13 @@ public class Intake
     private final Servo wrist;
 
     /** High position value for wrist servo. */
-    private final double wristLow = 0.40;
+    private final double wristLow = 0.10;
 
     /** Low position value for wrist servo. */
     //private final double wristMid = 0.34;
 
     /** High position value for wrist servo. */
-    private final double wristHigh = 0.10;
+    private final double wristHigh = 0.40;
 
     /** Current wrist position (ACTIVE = high, INACTIVE = low). */
     private WristPosition wristPosition = WristPosition.HIGH;
@@ -40,10 +40,10 @@ public class Intake
     private final Servo claw2;
 
     /** Open position value for claw servo. */
-    private final double clawClosePosition= 0.6;
+    private final double clawClosePosition= 0.75;
 
     /** Close position value for claw servo. */
-    private final double clawOpenPosition = 0.75;
+    private final double clawOpenPosition = 0.6;
 
     /** Current state of claw (ACTIVE = open, INACTIVE = closed). */
     private State clawState = State.INACTIVE;
