@@ -24,7 +24,7 @@ public class Scorer
         intake.closeClaw();
         wait(500);
         slides.extend();
-        wait(500);
+        wait(1500);
         intake.setWristHigh();
         wait(500);
         intake.openClaw();
