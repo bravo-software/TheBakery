@@ -13,14 +13,15 @@ public class AutonomousEasyBlue2024 extends LinearOpMode
     {
         driver = new Driver(hardwareMap);
         scorer = new Scorer(hardwareMap);
-        scorer.load();
 
         waitForStart();
-
-        driver.forward_tiles(1.5);
+        scorer.load();
+        driver.forward_tiles(1.75);
         driver.turn_90_clockwise(1);
         driver.forward_tiles(1);
         driver.turn_90_counter_clockwise(1);
         scorer.score(driver);
+        scorer.wait(1000);
+        driver.forward_tiles(0.1);
     }
 }
