@@ -16,29 +16,33 @@ public class Scorer
         this.slides = new LinearSlides(map, "Slides", 1540);
         this.intake = new Intake(map, "wrist", "claw1", "claw2");
         this.intake.openClaw();
+        this.intake.setWristLow();
     }
 
     public void score(Driver driver)
     {
         intake.closeClaw();
-        wait(1500);
+        wait(500);
         slides.extend();
-        wait(1500);
+        wait(500);
         intake.setWristHigh();
-        wait(1500);
+        wait(500);
         intake.openClaw();
-        wait(1500);
+        wait(500);
+        driver.forward_tiles(-0.1);
+        wait(500);
         slides.reset();
-        wait(1500);
-        intake.setWristLow();
-        wait(1500);
+        wait(1000);
     }
 
     public void load() {
         intake.setWristLow();
-        wait(1000);
+        wait(500);
         intake.openClaw();
-        wait(1000);
+        wait(500);
+        intake.closeClaw();
+        wait(500);
+        intake.setWristHigh();
     }
 
     public void wait(int milliseconds)
