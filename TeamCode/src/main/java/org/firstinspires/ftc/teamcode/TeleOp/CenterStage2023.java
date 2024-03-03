@@ -19,7 +19,7 @@ public class CenterStage2023 extends LinearOpMode {
 
         driveTrain = new DriveTrain(hardwareMap, "fL", "bL", "fR", "bR");
         //Linear Slides
-        int linearSlidesPosition = 1540;
+        int linearSlidesPosition = 1300;
 
         LinearSlides linearSlides = new LinearSlides(hardwareMap, "Slides", linearSlidesPosition);
 

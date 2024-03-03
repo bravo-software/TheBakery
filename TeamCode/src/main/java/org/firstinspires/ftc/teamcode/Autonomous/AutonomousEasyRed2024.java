@@ -21,8 +21,10 @@ public class AutonomousEasyRed2024 extends LinearOpMode
         driver.forward_tiles(1);
         driver.turn_90_clockwise(1);
         scorer.score(driver);
-        scorer.wait(1000);
+        scorer.wait(500);
         driver.forward_tiles(0.1);
+        driver.turn_90_clockwise(1);
+        driver.forward_tiles(0.75);
 
     }
 }
