@@ -15,12 +15,7 @@ public class AutonomousHardRed2024 extends LinearOpMode
         scorer = new Scorer(hardwareMap);
         waitForStart();
         scorer.load();
-        driver.forward_tiles(2); // maybe increase the value a little bit
-        driver.turn_90_clockwise(1);
-        driver.forward_tiles(3.6);
-        driver.turn_90_clockwise(1);
-        driver.forward_tiles(1);
-        driver.turn_90_counter_clockwise(1);
+        driver.parkHardRed();
         scorer.score(driver);
         driver.turn_90_clockwise(1);
         driver.forward_tiles(1);

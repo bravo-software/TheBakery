@@ -157,4 +157,36 @@ public class Driver extends DriveTrain
         return super.MotorBR.getCurrentPosition();
     }
 
+    public void parkEasyBlue()
+    {
+        forward_tiles(1.5);
+        turn_90_clockwise(1);
+        forward_tiles(1);
+        turn_90_counter_clockwise(1);
+    }
+
+    public void parkEasyRed()
+    {
+        forward_tiles(1.5);
+        turn_90_counter_clockwise(1);
+        forward_tiles(1);
+        turn_90_clockwise(1);
+    }
+
+    public void parkHardBlue()
+    {
+        forward_tiles(2); // maybe increase the value a little bit
+        turn_90_counter_clockwise(1);
+        forward_tiles(1);
+        turn_90_clockwise(1);
+    }
+
+    public void parkHardRed()
+    {
+        forward_tiles(2); // maybe increase the value a little bit
+        turn_90_clockwise(1);
+        forward_tiles(1);
+        turn_90_counter_clockwise(1);
+    }
+
 }
