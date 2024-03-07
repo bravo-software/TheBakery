@@ -159,7 +159,7 @@ public class Driver extends DriveTrain
 
     public void parkEasyBlue()
     {
-        forward_tiles(1.5);
+        forward_tiles(1.4);
         turn_90_clockwise(1);
         forward_tiles(1);
         turn_90_counter_clockwise(1);
@@ -167,7 +167,7 @@ public class Driver extends DriveTrain
 
     public void parkEasyRed()
     {
-        forward_tiles(1.5);
+        forward_tiles(1.4);
         turn_90_counter_clockwise(1);
         forward_tiles(1);
         turn_90_clockwise(1);
