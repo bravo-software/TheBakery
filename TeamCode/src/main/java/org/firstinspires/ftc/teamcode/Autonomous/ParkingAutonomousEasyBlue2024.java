@@ -16,6 +16,7 @@ public class ParkingAutonomousEasyBlue2024 extends LinearOpMode
 
         waitForStart();
         scorer.load();
-        driver.parkEasyBlue();
+        driver.forward_tiles(2);
+//        driver.parkEasyBlue();
     }
 }

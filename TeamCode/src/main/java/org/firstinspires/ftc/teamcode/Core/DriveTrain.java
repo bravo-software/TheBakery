@@ -12,7 +12,7 @@ public class DriveTrain
     public DcMotor MotorFR, MotorBR;
 
     /**
-     * Motor power modifiers to ensure consistent directional movement across all wheels.
+     * Motor power modifiers to ensure consistent directgit pull ional movement across all wheels.
      * <p>
      * These modifiers are used to adjust the direction of rotation for each motor, as
      * sometimes wheels may move in opposite directions with the same power setting.
