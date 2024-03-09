@@ -33,7 +33,7 @@ public class Scorer
         driver.forward_tiles(-0.1);
         wait(500);
         slides.reset();
-        wait(1000);
+        wait(2000);
     }
 
     public void load() // loading pixel code

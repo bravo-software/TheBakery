@@ -18,10 +18,7 @@ public class AutonomousHardBlue2024 extends LinearOpMode
         scorer.load();
         driver.parkHardBlue();
         scorer.score(driver);
-        driver.turn_90_counter_clockwise(1);
-        driver.forward_tiles(1);
-        driver.turn_90_clockwise(1);
-        driver.forward_tiles(0.15);
+
 
     }
 }
