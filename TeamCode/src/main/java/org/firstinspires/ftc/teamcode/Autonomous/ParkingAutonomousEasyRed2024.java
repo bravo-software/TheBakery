@@ -16,6 +16,8 @@ public class ParkingAutonomousEasyRed2024 extends LinearOpMode
 
         waitForStart();
         scorer.load();
-        driver.parkEasyRed();
+//        driver.parkEasyRed();
+        driver.forward_tiles(2
+        );
     }
 }

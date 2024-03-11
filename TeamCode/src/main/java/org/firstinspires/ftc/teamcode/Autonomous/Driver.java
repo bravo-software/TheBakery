@@ -187,7 +187,7 @@ public class Driver extends DriveTrain
     {
         forward_tiles(2.2, 0.55); // maybe increase the value a little bit
         turn_90_clockwise(1);
-        forward_tiles(3.5, 0.55);
+        forward_tiles(3.45, 0.55);
         turn_90_clockwise(1);
         forward_tiles(0.85);
         turn_90_counter_clockwise(1);
