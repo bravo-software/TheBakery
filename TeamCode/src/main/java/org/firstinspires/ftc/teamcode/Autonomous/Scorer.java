@@ -11,34 +11,40 @@ public class Scorer
     public Intake intake;
 
 
-    public Scorer(HardwareMap map)
+    public Scorer(HardwareMap map) // initialization
     {
         this.slides = new LinearSlides(map, "Slides", 1540);
-        this.intake = new Intake(map, "wrist", "claw");
-        this.intake.setWristMid();
-        this.intake.openClaw();
+        this.intake = new Intake(map, "wrist", "claw1", "claw2");
+//        this.intake.openClaw();
+//        this.intake.setWristLow();
+        this.intake.closeClaw();
     }
 
-    public void score(Driver driver)
+    public void score(Driver driver) // scoring code
     {
+        intake.closeClaw();
+        wait(500);
         slides.extend();
+        wait(1500);
         intake.setWristHigh();
-        wait(1500);
+        wait(500);
         intake.openClaw();
-        wait(1500);
-        intake.setWristLow();
-        wait(1500);
+        wait(500);
+        driver.forward_tiles(-0.1);
+        wait(500);
         slides.reset();
-
-        driver.backwardsSetDistance(0.5);
+        wait(2000);
     }
 
-    public void load() {
-        intake.setWristLow();
-        wait(1000);
-        intake.closeClaw();
-        wait(1000);
-        intake.xd();
+    public void load() // loading pixel code
+    {
+//        intake.setWristLow();
+//        wait(500);
+//        intake.openClaw();
+//        wait(500);
+//        intake.closeClaw();
+//        wait(500);
+        intake.setWristHigh();
     }
 
     public void wait(int milliseconds)

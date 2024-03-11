@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="AutonomousHardLeft2024", group="Autonomous")
-public class AutonomousHardLeft2024 extends LinearOpMode
+@Autonomous(name="AutonomousHardRed2024", group="Autonomous")
+public class AutonomousHardRed2024 extends LinearOpMode
 {
     Driver driver;
     Scorer scorer;
@@ -15,12 +15,8 @@ public class AutonomousHardLeft2024 extends LinearOpMode
         scorer = new Scorer(hardwareMap);
         waitForStart();
         scorer.load();
-        driver.forwardSetDistance(tile_length * 2.3);
-        driver.turn_park_90_intervalsCounterClockwise(90);
-        driver.forwardSetDistance(tile_length * 4);
-        driver.turn_park_90_intervalsCounterClockwise(90);
-        driver.forwardSetDistance(tile_length * 1);
-        driver.turn_park_90_intervalsClockwise(90);
+        driver.parkHardRed();
         scorer.score(driver);
+
     }
 }

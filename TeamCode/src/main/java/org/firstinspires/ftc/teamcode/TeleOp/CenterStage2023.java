@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Centerstage.Intake;
 import org.firstinspires.ftc.teamcode.Core.DriveTrain;
-import org.firstinspires.ftc.teamcode.Core.HookMechanism;
 import org.firstinspires.ftc.teamcode.Core.Launcher;
 import org.firstinspires.ftc.teamcode.Core.LinearSlides;
 
@@ -20,25 +19,19 @@ public class CenterStage2023 extends LinearOpMode {
 
         driveTrain = new DriveTrain(hardwareMap, "fL", "bL", "fR", "bR");
         //Linear Slides
-        int linearSlidesPosition = 1540;
+        int linearSlidesPosition = 1300;
+
         LinearSlides linearSlides = new LinearSlides(hardwareMap, "Slides", linearSlidesPosition);
 
-        Intake intake = new Intake(hardwareMap, "wrist", "claw");
+        Intake intake = new Intake(hardwareMap, "wrist", "claw1", "claw2");
 
-        HookMechanism hookMechanism = new HookMechanism(hardwareMap, "hanging", "hook");
+//        HookMechanism hookMechanism = new HookMechanism(hardwareMap, "hanging", "hook");
 
         Launcher launcher = new Launcher(hardwareMap, "launcher");
-
-
-
-        driveTrain.init();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         waitForStart();
-
-        linearSlides.extend();
-        linearSlides.reset();
 
         while (opModeIsActive())
         {
@@ -54,7 +47,7 @@ public class CenterStage2023 extends LinearOpMode {
 
             //Controller 1
             driveTrain.Drive(gamepad1);
-            hookMechanism.update(gamepad1);
+//            hookMechanism.update(gamepad1);
 
 
             //Controller 2

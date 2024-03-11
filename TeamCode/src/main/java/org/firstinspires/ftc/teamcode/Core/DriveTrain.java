@@ -12,14 +12,16 @@ public class DriveTrain
     public DcMotor MotorFR, MotorBR;
 
     /**
-     * Motor power modifiers to ensure consistent directional movement across all wheels.
+     * Motor power modifiers to ensure consistent directgit pull ional movement across all wheels.
      * <p>
      * These modifiers are used to adjust the direction of rotation for each motor, as
      * sometimes wheels may move in opposite directions with the same power setting.
      * <p>
      * These modifiers ensure that all wheels move in the intended direction.
      */
-    private final int MOTOR_FL_MODIFIER = 1, MOTOR_BL_MODIFIER = -1, MOTOR_FR_MODIFIER = 1, MOTOR_BR_MODIFIER = 1;
+    protected final int MOTOR_FL_MODIFIER = 1, MOTOR_BL_MODIFIER = 1, MOTOR_FR_MODIFIER = 1, MOTOR_BR_MODIFIER = 1;
+
+    protected boolean encoders_initialized = false;
 
     /**
      * Constructor for DriveTrain.
@@ -37,6 +39,14 @@ public class DriveTrain
         MotorBL = map.get(DcMotor.class, BL);
         MotorFR = map.get(DcMotor.class, FR);
         MotorBR = map.get(DcMotor.class, BR);
+
+        setDirection(DcMotor.Direction.FORWARD);
+        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        MotorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Stop();
     }
 
     /**
@@ -53,22 +63,6 @@ public class DriveTrain
     }
 
     /**
-     * Initializes the robot's drive system.
-     * Sets the motor direction and stops all motors.
-     */
-    public void init()
-    {
-        setDirection(DcMotor.Direction.FORWARD);
-        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Stop();
-//        initEncoders();
-//        MotorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        MotorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        MotorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        MotorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    }
-
-    /**
      * Stops all motors in the drive train.
      */
     public void Stop()
@@ -82,7 +76,7 @@ public class DriveTrain
      * @param gamepad The gamepad controlling movement for the robot.
      * @param speed   The speed at which to strafe.
      */
-    private void Strafe(Gamepad gamepad, float speed)
+    protected void Strafe(Gamepad gamepad, float speed)
     {
         double speedMod = calculateSpeedModifier(gamepad, 0.2, 0.6, 1);
         DirectStrafe(speed * speedMod);
@@ -94,10 +88,10 @@ public class DriveTrain
      * @param gamepad The gamepad controlling movement for the robot.
      * @param speed   The speed at which to move forward/backward.
      */
-    private void Forward(Gamepad gamepad, float speed)
+    protected void Forward(Gamepad gamepad, float speed)
     {
         double speedMod = calculateSpeedModifier(gamepad, 0.2, 0.6, 1);
-        DirectFoward(speed * speedMod);
+        DirectForward(speed * speedMod);
     }
 
     /**
@@ -121,7 +115,7 @@ public class DriveTrain
      * @param fast    Fast speed modifier.
      * @return The calculated speed modifier.
      */
-    private double calculateSpeedModifier(@NonNull Gamepad gamepad, double slow, double normal, double fast)
+    protected double calculateSpeedModifier(@NonNull Gamepad gamepad, double slow, double normal, double fast)
     {
         double speedModifier = normal;
         if (gamepad.a)
@@ -144,7 +138,7 @@ public class DriveTrain
      *
      * @param direction The direction to set the motors.
      */
-    private void setDirection(DcMotor.Direction direction)
+    protected void setDirection(DcMotor.Direction direction)
     {
         MotorFL.setDirection(direction);
         MotorBL.setDirection(direction);
@@ -154,11 +148,17 @@ public class DriveTrain
 
     /**
      * Initializes the encoders for the motors.
+     * WARNING: ONLY USE THIS IN AUTONOMOUS MODE.
      */
-    private void initEncoders()
+    public void initEncoders()
     {
+//        MotorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        MotorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+//        setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     /**
@@ -166,7 +166,7 @@ public class DriveTrain
      *
      * @param speed The speed at which to move forward.
      */
-    public void DirectFoward(double speed)
+    public void DirectForward(double speed)
     {
         System.out.println("Driving");
         setPower(speed);
@@ -191,7 +191,7 @@ public class DriveTrain
      *
      * @param speed The speed at which to strafe.
      */
-    private void DirectStrafe(double speed)
+    protected void DirectStrafe(double speed)
     {
         System.out.println("Strafing");
         setPowerFL(-speed);
@@ -218,7 +218,7 @@ public class DriveTrain
      *
      * @param power The power level for the Front Left motor.
      */
-    private void setPowerFL(double power)
+    protected void setPowerFL(double power)
     {
         MotorFL.setPower(power * MOTOR_FL_MODIFIER);
     }
@@ -228,7 +228,7 @@ public class DriveTrain
      *
      * @param power The power level for the Back Left motor.
      */
-    private void setPowerBL(double power)
+    protected void setPowerBL(double power)
     {
         MotorBL.setPower(power * MOTOR_BL_MODIFIER);
     }
@@ -238,7 +238,7 @@ public class DriveTrain
      *
      * @param power The power level for the Front Right motor.
      */
-    private void setPowerFR(double power)
+    protected void setPowerFR(double power)
     {
         MotorFR.setPower(power * MOTOR_FR_MODIFIER);
     }
@@ -248,7 +248,7 @@ public class DriveTrain
      *
      * @param power The power level for the Back Right motor.
      */
-    private void setPowerBR(double power)
+    protected void setPowerBR(double power)
     {
         MotorBR.setPower(power * MOTOR_BR_MODIFIER);
     }
@@ -274,6 +274,7 @@ public class DriveTrain
     }
     public boolean isBusy()
     {
-        return MotorFL.isBusy() && MotorBL.isBusy() && MotorFR.isBusy() && MotorBR.isBusy();
+        return MotorFL.isBusy() || MotorBL.isBusy() || MotorFR.isBusy() || MotorBR.isBusy();
     }
+
 }
