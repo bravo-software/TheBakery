@@ -3,14 +3,11 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.SerialNumber;
 
 
-@TeleOp(name="CenterStage2023", group="TeleOp")
+@TeleOp(name="Test2024", group="TeleOp")
 
-public class CenterStage2023 extends LinearOpMode
+public class Test2024 extends LinearOpMode
 {
     //    private Servo wrist;
     @Override

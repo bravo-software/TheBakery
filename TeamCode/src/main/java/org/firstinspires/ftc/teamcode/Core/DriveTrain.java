@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class DriveTrain
 {
-    public DcMotor MotorFL, MotorBL;
-    public DcMotor MotorFR, MotorBR;
+    public DcMotor MotorfL, MotorbL;
+    public DcMotor MotorfR, MotorbR;
 
     /**
      * Motor power modifiers to ensure consistent directgit pull ional movement across all wheels.
@@ -19,7 +19,7 @@ public class DriveTrain
      * <p>
      * These modifiers ensure that all wheels move in the intended direction.
      */
-    protected final int MOTOR_FL_MODIFIER = 1, MOTOR_BL_MODIFIER = 1, MOTOR_FR_MODIFIER = 1, MOTOR_BR_MODIFIER = 1;
+    protected final int MOTOR_fL_MODIFIER = 1, MOTOR_bL_MODIFIER = 1, MOTOR_fR_MODIFIER = 1, MOTOR_bR_MODIFIER = 1;
 
     protected boolean encoders_initialized = false;
 
@@ -35,10 +35,10 @@ public class DriveTrain
      */
     public DriveTrain(HardwareMap map, String FL, String BL, String FR, String BR)
     {
-        MotorFL = map.get(DcMotor.class, FL);
-        MotorBL = map.get(DcMotor.class, BL);
-        MotorFR = map.get(DcMotor.class, FR);
-        MotorBR = map.get(DcMotor.class, BR);
+        MotorfL = map.get(DcMotor.class, FL);
+        MotorbL = map.get(DcMotor.class, BL);
+        MotorfR = map.get(DcMotor.class, FR);
+        MotorbR = map.get(DcMotor.class, BR);
 
         setDirection(DcMotor.Direction.FORWARD);
         setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -59,7 +59,7 @@ public class DriveTrain
     {
         Turn(gamepad, gamepad.right_stick_x);
         Forward(gamepad, gamepad.left_stick_y);
-        Strafe(gamepad, gamepad.left_stick_x);
+//        Strafe(gamepad, gamepad.left_stick_x);
     }
 
     /**
@@ -76,11 +76,11 @@ public class DriveTrain
      * @param gamepad The gamepad controlling movement for the robot.
      * @param speed   The speed at which to strafe.
      */
-    protected void Strafe(Gamepad gamepad, float speed)
-    {
-        double speedMod = calculateSpeedModifier(gamepad, 0.2, 0.6, 1);
-        DirectStrafe(speed * speedMod);
-    }
+//    protected void Strafe(Gamepad gamepad, float speed)
+//    {
+//        double speedMod = calculateSpeedModifier(gamepad, 0.2, 0.6, 1);
+//        DirectStrafe(speed * speedMod);
+//    }
 
     /**
      * Controls the forward/backward movement of the robot with speed modifiers.
@@ -140,10 +140,10 @@ public class DriveTrain
      */
     protected void setDirection(DcMotor.Direction direction)
     {
-        MotorFL.setDirection(direction);
-        MotorBL.setDirection(direction);
-        MotorFR.setDirection(direction);
-        MotorBR.setDirection(direction);
+        MotorfL.setDirection(direction);
+        MotorbL.setDirection(direction);
+        MotorfR.setDirection(direction);
+        MotorbR.setDirection(direction);
     }
 
     /**
@@ -169,7 +169,10 @@ public class DriveTrain
     public void DirectForward(double speed)
     {
         System.out.println("Driving");
-        setPower(speed);
+        setPowerFR(speed);
+        setPowerFL(-speed);
+        setPowerBL(speed);
+        setPowerBR(speed);
     }
 
     /**
@@ -180,7 +183,7 @@ public class DriveTrain
     public void DirectTurn(double speed)
     {
         System.out.println("Turning");
-        setPowerFL(-speed);
+        setPowerFL(speed);
         setPowerBL(-speed);
         setPowerFR(speed);
         setPowerBR(speed);
@@ -194,10 +197,10 @@ public class DriveTrain
     protected void DirectStrafe(double speed)
     {
         System.out.println("Strafing");
-        setPowerFL(-speed);
-        setPowerBL(speed);
+        setPowerFL(speed);
+        setPowerBL(-speed);
         setPowerFR(speed);
-        setPowerBR(-speed);
+        setPowerBR(speed);
     }
 
     /**
@@ -207,10 +210,10 @@ public class DriveTrain
      */
     public void setPower(double power)
     {
-        MotorFL.setPower(power * MOTOR_FL_MODIFIER);
-        MotorBL.setPower(power * MOTOR_BL_MODIFIER);
-        MotorFR.setPower(power * MOTOR_FR_MODIFIER);
-        MotorBR.setPower(power * MOTOR_BR_MODIFIER);
+        MotorfL.setPower(power * MOTOR_fL_MODIFIER);
+        MotorbL.setPower(power * MOTOR_bL_MODIFIER);
+        MotorfR.setPower(power * MOTOR_fR_MODIFIER);
+        MotorbR.setPower(power * MOTOR_bR_MODIFIER);
     }
 
     /**
@@ -220,7 +223,7 @@ public class DriveTrain
      */
     protected void setPowerFL(double power)
     {
-        MotorFL.setPower(power * MOTOR_FL_MODIFIER);
+        MotorfL.setPower(power * MOTOR_fL_MODIFIER);
     }
 
     /**
@@ -230,7 +233,7 @@ public class DriveTrain
      */
     protected void setPowerBL(double power)
     {
-        MotorBL.setPower(power * MOTOR_BL_MODIFIER);
+        MotorbL.setPower(power * MOTOR_bL_MODIFIER);
     }
 
     /**
@@ -240,7 +243,7 @@ public class DriveTrain
      */
     protected void setPowerFR(double power)
     {
-        MotorFR.setPower(power * MOTOR_FR_MODIFIER);
+        MotorfR.setPower(power * MOTOR_fR_MODIFIER);
     }
 
     /**
@@ -250,7 +253,7 @@ public class DriveTrain
      */
     protected void setPowerBR(double power)
     {
-        MotorBR.setPower(power * MOTOR_BR_MODIFIER);
+        MotorbR.setPower(power * MOTOR_bR_MODIFIER);
     }
 
     /**
@@ -260,21 +263,21 @@ public class DriveTrain
      */
     public void setMode(DcMotor.RunMode mode)
     {
-        MotorFL.setMode(mode);
-        MotorBL.setMode(mode);
-        MotorFR.setMode(mode);
-        MotorBR.setMode(mode);
+        MotorfL.setMode(mode);
+        MotorbL.setMode(mode);
+        MotorfR.setMode(mode);
+        MotorbR.setMode(mode);
     }
     public void setTargetPosition(int ticks)
     {
-        MotorFL.setTargetPosition(ticks);
-        MotorBL.setTargetPosition(ticks);
-        MotorFR.setTargetPosition(ticks);
-        MotorBR.setTargetPosition(ticks);
+        MotorfL.setTargetPosition(ticks);
+        MotorbL.setTargetPosition(ticks);
+        MotorfR.setTargetPosition(ticks);
+        MotorbR.setTargetPosition(ticks);
     }
     public boolean isBusy()
     {
-        return MotorFL.isBusy() && MotorBL.isBusy() && MotorFR.isBusy() && MotorBR.isBusy();
+        return MotorfL.isBusy() && MotorbL.isBusy() && MotorfR.isBusy() && MotorbR.isBusy();
     }
 
 }

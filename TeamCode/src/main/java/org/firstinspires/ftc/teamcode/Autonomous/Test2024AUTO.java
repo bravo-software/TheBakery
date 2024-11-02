@@ -17,10 +17,10 @@ public class Test2024AUTO extends LinearOpMode
 
 
             //can we delete this?
-            driveTrain.MotorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            driveTrain.MotorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            driveTrain.MotorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            driveTrain.MotorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            driveTrain.MotorfR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            driveTrain.MotorfL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            driveTrain.MotorbL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            driveTrain.MotorbR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             boolean ran = false;
 
             waitForStart();

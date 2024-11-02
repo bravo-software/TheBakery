@@ -22,6 +22,7 @@ public class Intake
     /** Servo for controlling the wrist. */
     private final Servo wrist;
 
+
     /** High position value for wrist servo. */
     private final double wristLow = 0.10;
 
@@ -59,6 +60,7 @@ public class Intake
     private ServoToggle clawToggle;
 
     private ServoToggle wristToggle;
+
     public Intake(@NonNull HardwareMap map, String wristName, String clawName1, String clawName2)
     {
         wrist = map.get(Servo.class, wristName);

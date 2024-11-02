@@ -28,10 +28,10 @@ public class Driver extends DriveTrain
     public Driver(HardwareMap map)
     {
         super(map, "fL", "bL", "fR", "bR");
-        super.MotorFR.setDirection(DcMotor.Direction.REVERSE);
-        super.MotorBR.setDirection(DcMotor.Direction.REVERSE);
-        super.MotorBL.setDirection(DcMotor.Direction.REVERSE);
-        super.MotorFL.setDirection(DcMotor.Direction.REVERSE);
+        super.MotorfR.setDirection(DcMotor.Direction.REVERSE);
+        super.MotorbR.setDirection(DcMotor.Direction.REVERSE);
+        super.MotorbL.setDirection(DcMotor.Direction.REVERSE);
+        super.MotorfL.setDirection(DcMotor.Direction.REVERSE);
     }
 
     private void checkIsBusy()
@@ -67,15 +67,15 @@ public class Driver extends DriveTrain
 
     private void forward_ticks(int ticks, double power)
     {
-        int FR_target = super.MotorFR.getCurrentPosition() + ticks;
-        int FL_target = super.MotorFL.getCurrentPosition() + ticks;
-        int BR_target = super.MotorBR.getCurrentPosition() + ticks;
-        int BL_target = super.MotorBL.getCurrentPosition() + ticks;
+        int FR_target = super.MotorfR.getCurrentPosition() + ticks;
+        int FL_target = super.MotorfL.getCurrentPosition() + ticks;
+        int BR_target = super.MotorbR.getCurrentPosition() + ticks;
+        int BL_target = super.MotorbL.getCurrentPosition() + ticks;
 
-        super.MotorFR.setTargetPosition(FR_target);
-        super.MotorFL.setTargetPosition(FL_target);
-        super.MotorBR.setTargetPosition(BR_target);
-        super.MotorBL.setTargetPosition(BL_target);
+        super.MotorfR.setTargetPosition(FR_target);
+        super.MotorfL.setTargetPosition(FL_target);
+        super.MotorbR.setTargetPosition(BR_target);
+        super.MotorbL.setTargetPosition(BL_target);
 
         super.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -86,7 +86,7 @@ public class Driver extends DriveTrain
 
     public void forward_distance(double distance, double power)
     {
-        int current_position = super.MotorFL.getCurrentPosition();
+        int current_position = super.MotorfL.getCurrentPosition();
         int ticks = (int) (distance * encoderResolution / distance_per_motor_rotation);
         forward_ticks(ticks, power);
 
@@ -106,17 +106,17 @@ public class Driver extends DriveTrain
     public void turn_ticks(int ticks, double power)
     {
 
-        int BL_target = super.MotorBL.getCurrentPosition() + ticks;
-        int BR_target = super.MotorBR.getCurrentPosition() - ticks;
+        int BL_target = super.MotorbL.getCurrentPosition() + ticks;
+        int BR_target = super.MotorbR.getCurrentPosition() - ticks;
 
-        int FL_target = super.MotorFL.getCurrentPosition() + ticks;
-        int FR_target = super.MotorFR.getCurrentPosition() - ticks;
+        int FL_target = super.MotorfL.getCurrentPosition() + ticks;
+        int FR_target = super.MotorfR.getCurrentPosition() - ticks;
 
-        super.MotorBL.setTargetPosition(BL_target);
-        super.MotorBR.setTargetPosition(BR_target);
+        super.MotorbL.setTargetPosition(BL_target);
+        super.MotorbR.setTargetPosition(BR_target);
 
-        super.MotorFL.setTargetPosition(FL_target);
-        super.MotorFR.setTargetPosition(FR_target);
+        super.MotorfL.setTargetPosition(FL_target);
+        super.MotorfR.setTargetPosition(FR_target);
 
         super.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -142,19 +142,19 @@ public class Driver extends DriveTrain
 
     public int getMotorFLPosition()
     {
-        return super.MotorFL.getCurrentPosition();
+        return super.MotorfL.getCurrentPosition();
     }
     public int getMotorFRPosition()
     {
-        return super.MotorFR.getCurrentPosition();
+        return super.MotorfR.getCurrentPosition();
     }
     public int getMotorBLPosition()
     {
-        return super.MotorBL.getCurrentPosition();
+        return super.MotorbL.getCurrentPosition();
     }
     public int getMotorBRPosition()
     {
-        return super.MotorBR.getCurrentPosition();
+        return super.MotorbR.getCurrentPosition();
     }
 
     public void parkEasyBlue()
