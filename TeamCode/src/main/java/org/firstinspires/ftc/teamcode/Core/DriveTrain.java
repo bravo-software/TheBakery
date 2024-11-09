@@ -59,7 +59,7 @@ public class DriveTrain
     {
         Turn(gamepad, gamepad.right_stick_x);
         Forward(gamepad, gamepad.left_stick_y);
-//        Strafe(gamepad, gamepad.left_stick_x);
+        Strafe(gamepad, gamepad.left_stick_x);
     }
 
     /**
@@ -92,6 +92,12 @@ public class DriveTrain
     {
         double speedMod = calculateSpeedModifier(gamepad, 0.2, 0.6, 1);
         DirectForward(speed * speedMod);
+    }
+
+    protected void Strafe(Gamepad gamepad, float speed)
+    {
+        double speedMod = calculateSpeedModifier(gamepad, 0.2, 0.6, 1);
+        DirectStrafe(speed * speedMod);
     }
 
     /**
@@ -197,9 +203,9 @@ public class DriveTrain
     protected void DirectStrafe(double speed)
     {
         System.out.println("Strafing");
-        setPowerFL(speed);
+        setPowerFL(-speed);
         setPowerBL(-speed);
-        setPowerFR(speed);
+        setPowerFR(-speed);
         setPowerBR(speed);
     }
 

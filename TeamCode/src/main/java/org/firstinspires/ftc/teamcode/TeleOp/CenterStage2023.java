@@ -7,65 +7,48 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Core.DriveTrain;
+import org.firstinspires.ftc.teamcode.Core.LinearSlides;
 
 
 @TeleOp(name="CenterStage2023", group="TeleOp")
 public class CenterStage2023 extends LinearOpMode {
-
-//    private DcMotor leftFront;
-//    private DcMotor leftRear;
-//    private DcMotor rightFront;
-//    private DcMotor rightRear;
     private DriveTrain driveTrain;
 
     private Servo scoop;
     private Servo turn;
     private Servo arm;
     private DcMotor slide;
+//    private LinearSlides linearSlides;
 
 
 
     // Define the maximum and minimum encoder positions for the slide
-    private final int SLIDE_MAX_POSITION = 5000; // Adjust based on the max height of your slide
-    private final int SLIDE_MIN_POSITION = 0;
+//    private final int SLIDE_MAX_POSITION = 5000; // Adjust based on the max height of your slide
+//    private final int SLIDE_MIN_POSITION = 0;
 
     @Override
     public void runOpMode()
     {
-
-//        leftFront = hardwareMap.get(DcMotor.class, "leftFront");
-//        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-//        leftRear = hardwareMap.get(DcMotor.class, "leftRear");
-//        rightRear = hardwareMap.get(DcMotor.class, "rightRear");
-//
-//        // Set motor directions (adjust these as needed based on your setup)
-//        leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
-//        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
-//        leftRear.setDirection(DcMotorSimple.Direction.FORWARD);
-//        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
-//
-//        // Set Zero Power Behavior to BRAKE for all motors
-//        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
         scoop = hardwareMap.get(Servo.class, "scoop");
         arm = hardwareMap.get(Servo.class, "arm");
         turn = hardwareMap.get(Servo.class, "turn");
         slide = hardwareMap.get(DcMotor.class, "slide");
 
-        // Set motor direction and zero power behavior
-        slide.setDirection(DcMotor.Direction.REVERSE);
-        slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        // Set motor direction and zero power behavior
+//        slide.setDirection(DcMotor.Direction.FORWARD);
+//        slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//
+//        // Reset encoder position and set to run using encoder
+//        slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        // Reset encoder position and set to run using encoder
-        slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slide = hardwareMap.get(DcMotor.class, "slide");
+
+        // Set the motor to run without encoders
+        slide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        telemetry.addData("Status", "Initialized");
         driveTrain = new DriveTrain(hardwareMap, "fL", "bL", "fR", "bR");
-//        //Linear Slides
-//        int linearSlidesPosition = 1300;
 //
 //        LinearSlides linearSlides = new LinearSlides(hardwareMap, "Slides", linearSlidesPosition);
 //
@@ -81,70 +64,50 @@ public class CenterStage2023 extends LinearOpMode {
 
         while (opModeIsActive())
         {
-
-//            double y = -gamepad1.left_stick_y;       // Forward and backward (inverted for forward motion)
-//            double rotation = gamepad1.right_stick_x;
+//            double extendPower = gamepad2.right_trigger; // Extend slide
+//            double retractPower = gamepad2.left_trigger;  // Retract slide
 //
-//            double leftFrontPower = y + rotation;
-//            double rightFrontPower = y - rotation;
-//            double leftRearPower = y + rotation;
-//            double rightRearPower = y - rotation;
-//
-//            double maxPower = Math.max(1.0, Math.abs(leftFrontPower));
-//            leftFrontPower /= maxPower;
-//            rightFrontPower /= maxPower;
-//            leftRearPower /= maxPower;
-//            rightRearPower /= maxPower;
-//
-//
-//            // Set motor powers
-//            leftFront.setPower(leftFrontPower);
-//            rightFront.setPower(rightFrontPower);
-//            leftRear.setPower(leftRearPower);
-//            rightRear.setPower(rightRearPower);
-//
-//            // Telemetry for debugging
-//            telemetry.addData("Left Front Power", leftFrontPower);
-//            telemetry.addData("Right Front Power", rightFrontPower);
-//            telemetry.addData("Left Rear Power", leftRearPower);
-//            telemetry.addData("Right Rear Power", rightRearPower);
-//            telemetry.update();
+//            double maxPower = 1.0;
+//            int currentPosition = slide.getCurrentPosition();
+//            double power = 0; // maybe change to 0.01 or smth
 
+//            if (extendPower > 0 && currentPosition < SLIDE_MAX_POSITION) {
+//                // Extend the slide up to the maximum limit
+//                power = extendPower * maxPower;
+//            } else if (retractPower > 0 && currentPosition > SLIDE_MIN_POSITION) {
+//                // Retract the slide down to the minimum limit
+//                power = -retractPower * maxPower;
+//            } else {
+//                // Stop motor if outside of limits or if no trigger is pressed
+//                power = 0;
+//            }
 
-
-            double extendPower = gamepad2.right_trigger; // Extend slide
-            double retractPower = gamepad2.left_trigger;  // Retract slide
-
-            // Calculate desired power based on trigger inputs
-            double power = (extendPower - retractPower);
-
-            // Get current encoder position of the slide
-            int currentPosition = slide.getCurrentPosition();
-            if (extendPower > 0 && currentPosition < SLIDE_MAX_POSITION) {
-                // Extend the slide up to the maximum limit
-                slide.setPower(extendPower);
-            } else if (retractPower > 0 && currentPosition > SLIDE_MIN_POSITION) {
-                // Retract the slide down to the minimum limit
-                slide.setPower(-retractPower);
+            if (gamepad2.right_trigger > 0.1) {  // Move slides up when right trigger is pressed
+                slide.setPower(gamepad2.right_trigger);  // Use trigger value for variable speed
+            } else if (gamepad2.left_trigger > 0.1) {  // Move slides down when left trigger is pressed
+                slide.setPower(-gamepad2.left_trigger);  // Use negative trigger value for down direction
             } else {
-                // Stop motor if outside of limits or if no trigger is pressed
-                slide.setPower(0);
+                slide.setPower(0);  // Keep slides stationary if neither trigger is pressed
             }
-
-            telemetry.addData("Slide Position", currentPosition);
-            telemetry.addData("Motor Power", slide.getPower());
-            telemetry.addData("Left Trigger Value", gamepad2.left_trigger);
-            telemetry.addData("Right Trigger Value", gamepad2.right_trigger);
+            telemetry.addData("Slide Motor Power", slide.getPower());
             telemetry.update();
+
+//            slide.setPower(power);
+//
+//            telemetry.addData("Slide Position", currentPosition);
+//            telemetry.addData("Motor Power", slide.getPower());
+//            telemetry.addData("Left Trigger Value", gamepad2.left_trigger);
+//            telemetry.addData("Right Trigger Value", gamepad2.right_trigger);
+//            telemetry.update();
 
 
 
             arm.setDirection(Servo.Direction.FORWARD);
             if (gamepad2.b) {
-                arm.setPosition(0.9);
+                arm.setPosition(0.965);
             }
             else if (gamepad2.y) {
-                arm.setPosition(0.465);
+                arm.setPosition(0.465); //0.465
             }
             telemetry.addData("Servo Position", arm.getPosition());
             telemetry.update();
@@ -152,9 +115,7 @@ public class CenterStage2023 extends LinearOpMode {
 
             turn.setDirection(Servo.Direction.FORWARD); // or REVERSE
             // Control the continuous servo based on gamepad input
-            if (gamepad2.right_bumper) {
-                turn.setPosition(0);
-            } else if (gamepad2.left_stick_y > 0) {
+            if (gamepad2.left_stick_y > 0) {
                 // Full speed clockwise
                 turn.setPosition(-1);
             } else if (gamepad2.left_stick_y < 0) {
@@ -196,7 +157,7 @@ public class CenterStage2023 extends LinearOpMode {
 
             //Controller 2
 //            intake.updateServos(gamepad2.x, gamepad2.a);
-//            linearSlides.update(gamepad2.y);
+//            linearSlides.update(gamepad1.a);
 //            launcher.update(gamepad2.b);
 
         }
