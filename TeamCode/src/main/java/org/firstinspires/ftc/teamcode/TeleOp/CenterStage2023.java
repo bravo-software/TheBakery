@@ -104,10 +104,10 @@ public class CenterStage2023 extends LinearOpMode {
 
             arm.setDirection(Servo.Direction.FORWARD);
             if (gamepad2.b) {
-                arm.setPosition(0.965);
+                arm.setPosition(0.965); //0.965 for white arm
             }
             else if (gamepad2.y) {
-                arm.setPosition(0.465); //0.465
+                arm.setPosition(0.55);
             }
             telemetry.addData("Servo Position", arm.getPosition());
             telemetry.update();
@@ -117,9 +117,11 @@ public class CenterStage2023 extends LinearOpMode {
             // Control the continuous servo based on gamepad input
             if (gamepad2.left_stick_y > 0) {
                 // Full speed clockwise
-                turn.setPosition(-1);
+                turn.setPosition(-1.0);
             } else if (gamepad2.left_stick_y < 0) {
                 // Full speed counter-clockwise
+//                double reducedSpeed = gamepad2.left_stick_y * 0.5; // Adjust the factor as needed (e.g., 0.5 for 50% speed)
+//                turn.setPosition(reducedSpeed);
                 turn.setPosition(1.0);
 
                 // Add telemetry or other controls as needed
@@ -142,10 +144,11 @@ public class CenterStage2023 extends LinearOpMode {
 
 
 
-            telemetry.addData("fR Pos", String.valueOf(driveTrain.MotorfR.getCurrentPosition()));
-            telemetry.addData("fL Pos", String.valueOf(driveTrain.MotorfL.getCurrentPosition()));
-            telemetry.addData("bR Pos", String.valueOf(driveTrain.MotorbR.getCurrentPosition()));
-            telemetry.addData("bL Pos", String.valueOf(driveTrain.MotorbL.getCurrentPosition()));
+            telemetry.addData("fR Pos", String.valueOf(driveTrain.MotorfR.getPower()));
+            telemetry.addData("fL Pos", String.valueOf(driveTrain.MotorfL.getPower()));
+            telemetry.addData("bR Pos", String.valueOf(driveTrain.MotorbR.getPower()));
+            telemetry.addData("bL Pos", String.valueOf(driveTrain.MotorbL.getPower()));
+            //getCurrentPosition()
 
             telemetry.update();
 
