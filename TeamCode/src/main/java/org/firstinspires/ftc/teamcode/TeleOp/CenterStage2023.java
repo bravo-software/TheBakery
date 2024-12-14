@@ -17,6 +17,8 @@ public class CenterStage2023 extends LinearOpMode {
     private Servo scoop;
     private Servo turn;
     private Servo arm;
+    private Servo wallA;
+    private Servo wallB;
     private DcMotor slide;
 //    private LinearSlides linearSlides;
 
@@ -32,6 +34,8 @@ public class CenterStage2023 extends LinearOpMode {
         scoop = hardwareMap.get(Servo.class, "scoop");
         arm = hardwareMap.get(Servo.class, "arm");
         turn = hardwareMap.get(Servo.class, "turn");
+        wallA= hardwareMap.get(Servo.class, "wallA");
+        wallB= hardwareMap.get(Servo.class, "wallB");
         slide = hardwareMap.get(DcMotor.class, "slide");
 
 //        // Set motor direction and zero power behavior
@@ -104,10 +108,12 @@ public class CenterStage2023 extends LinearOpMode {
 
             arm.setDirection(Servo.Direction.FORWARD);
             if (gamepad2.b) {
-                arm.setPosition(0.965); //0.965 for white arm
+          //      arm.setPosition(0.965); //0.965 for white arm
+                arm.setPosition (0.985);
             }
             else if (gamepad2.y) {
                 arm.setPosition(0.55);
+
             }
             telemetry.addData("Servo Position", arm.getPosition());
             telemetry.update();
@@ -128,11 +134,33 @@ public class CenterStage2023 extends LinearOpMode {
                 telemetry.update();
             }
 
+            wallA.setDirection(Servo.Direction.FORWARD);
+            if (gamepad2.dpad_up) { //goes counter-clockwise
+                wallA.setPosition(0.3);
+            }
+            else if (gamepad2.dpad_down) { // goes clockwise
+                wallA.setPosition(1.0);
+            }
+            telemetry.addData( "Servo Position", wallA. getPosition ());
+            telemetry.update ();
+            telemetry.clear();
+
+            wallB.setDirection(Servo.Direction.FORWARD);
+            if (gamepad2.dpad_right) { //goes counter-clockwise
+                wallB.setPosition(0.3);
+            }
+            else if (gamepad2.dpad_left) {
+                wallB.setPosition(1.0);
+            }
+            telemetry.addData("Servo Position", wallB.getPosition());
+            telemetry.update();
+            telemetry.clear();
 
 
             scoop.setDirection(Servo.Direction.FORWARD);
             if (gamepad2.a) { // goes counter-clockwise.
                 scoop.setPosition(0.4);
+         //       scoop.setPosition(0.3);
             }
             else if (gamepad2.x) { // goes clockwise.
                 scoop.setPosition(1.0);
