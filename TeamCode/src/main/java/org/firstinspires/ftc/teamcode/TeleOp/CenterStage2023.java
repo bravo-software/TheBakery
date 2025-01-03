@@ -136,7 +136,7 @@ public class CenterStage2023 extends LinearOpMode {
 
             wallA.setDirection(Servo.Direction.FORWARD);
             if (gamepad2.dpad_up) { //goes counter-clockwise
-                wallA.setPosition(0.3);
+                wallA.setPosition(-1.4);
             }
             else if (gamepad2.dpad_down) { // goes clockwise
                 wallA.setPosition(1.0);
@@ -145,16 +145,7 @@ public class CenterStage2023 extends LinearOpMode {
             telemetry.update ();
             telemetry.clear();
 
-            wallB.setDirection(Servo.Direction.FORWARD);
-            if (gamepad2.dpad_right) { //goes counter-clockwise
-                wallB.setPosition(0.3);
-            }
-            else if (gamepad2.dpad_left) {
-                wallB.setPosition(1.0);
-            }
-            telemetry.addData("Servo Position", wallB.getPosition());
-            telemetry.update();
-            telemetry.clear();
+           
 
 
             scoop.setDirection(Servo.Direction.FORWARD);
